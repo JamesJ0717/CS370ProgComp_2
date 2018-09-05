@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Intro to Node and MongoDB</title>
+</head>
+
+<body>
+    <h1>Into to Node and MongoDB</h1>
+    <form method="post" action="/fileupload">
+        <label>Enter Your File</label><br>
+        <input type="file" name="filetoupload" required>
+        <input type="submit" placeholder="Upload">
+    </form>
+
+    <form method="GET" action="/fileupload">
+        <label> Test</label>
+        <input type="submit">
+    </form>
+
+    <form method="POST" action="/fileupload/#{File._id}">
+        <input type="text" name="idToDelete" value="DELETE">
+        <input type="submit" placeholder="Delete">
+    </form>
+</body>
+
+</html>
