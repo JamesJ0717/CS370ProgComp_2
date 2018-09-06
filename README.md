@@ -10,5 +10,15 @@ CS370 Programming Competition Group 2
         `git clone https://github.com/jamesj0717/CS370ProgComp_2`
     -   Or download a zip
 
--   Run
+    -   Install the dependencies  
+        `body-parser`  
+        `express`  
+        `formidable`  
+        `fs`  
+        `http`  
+        `mongoose`  
+        `morgan`  
+        `multer`
+
+-   Run  
     `node server` to start the server
