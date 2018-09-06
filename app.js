@@ -6,9 +6,11 @@ const morgan = require('morgan');
 
 const fileUploadRoute = require('./api/routes/fileupload');
 
-const database = mongoose.connect("mongodb+srv://admin:cs370password@cluster0-b8ovy.mongodb.net/cs370project?retryWrites=true", {
-    useNewUrlParser: true
-});
+const database = mongoose.connect("mongodb+srv://admin:" +
+    process.env.MONGO_ATLAS_PASSWD +
+    "@cluster0-b8ovy.mongodb.net/cs370project?retryWrites=true", {
+        useNewUrlParser: true
+    });
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
