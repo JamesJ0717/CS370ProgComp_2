@@ -6,11 +6,11 @@ const morgan = require('morgan');
 
 const fileUploadRoute = require('./api/routes/fileupload');
 
-const database = mongoose.connect("mongodb+srv://admin:" +
-    process.env.MONGO_ATLAS_PASSWD +
-    "@cluster0-b8ovy.mongodb.net/cs370project?retryWrites=true", {
-        useNewUrlParser: true
-    });
+// const database = mongoose.connect("mongodb+srv://admin:" +
+//     process.env.MONGO_ATLAS_PASSWD +
+//     "@cluster0-b8ovy.mongodb.net/cs370project?retryWrites=true", {
+//         useNewUrlParser: true
+//     });
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -36,6 +36,10 @@ app.use('/fileupload', fileUploadRoute);
 app.use('/', (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
+
+// app.use('/upload', (req, res) => {
+//     res.sendFile(__dirname + "/upload.php");
+// });
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
