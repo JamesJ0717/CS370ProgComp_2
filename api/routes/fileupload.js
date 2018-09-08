@@ -40,10 +40,11 @@ router.get("/:fileID", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-	if (!req.files)
+	if (!req.files) {
 		return res.status(400).send('No files were uploaded.');
+	}
 
-	let filetoupload = req.files.filetoupload;
+	var filetoupload = req.files.filetoupload;
 
 	filetoupload.mv('/Users/jamesjohnson/Desktop/School Stuff/CS370ProgComp_2/uploads/' + filetoupload.name, function (err) {
 		if (err) {
