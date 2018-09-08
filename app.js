@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 const fileUploadRoute = require('./api/routes/fileupload');
+const loginRoute = require('./api/routes/login');
 
 mongoose.connect("mongodb+srv://admin:" +
     process.env.MONGO_ATLAS_PASSWD +
@@ -32,10 +33,12 @@ app.use((req, res, next) => {
 });
 
 app.use('/fileupload', fileUploadRoute);
+// app.use('/login', loginRoute);
 
 app.use('/', (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
+
 
 app.use((req, res, next) => {
     const error = new Error('Not found');
