@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
-const formidable = require("formidable");
-const fs = require("fs");
+const fileUpload = require('express-fileupload');
 
 const File = require("../models/fileModel");
 
-const db = require("../../app");
+router.use(fileUpload());
 
 router.get("/", (req, res, next) => {
 	File.find()
@@ -26,8 +24,8 @@ router.get("/", (req, res, next) => {
 router.get("/:fileID", (req, res, next) => {
 	const id = req.params.fileID;
 	File.findById({
-		_id: id
-	})
+			_id: id
+		})
 		.exec()
 		.then(docs => {
 			console.log(docs);
@@ -42,32 +40,26 @@ router.get("/:fileID", (req, res, next) => {
 });
 
 router.post("/", (req, res, next) => {
-	const fileUpload = new File({
-		_id: new mongoose.Types.ObjectId(),
-		name: req.body.filetoupload
-	});
-	fileUpload
-		.save()
-		.then(result => {
-			console.log(result);
-			res.status(201).json({
-				message: fileUpload.name + " was uploaded.",
-				id: fileUpload._id
-			});
-		})
-		.catch(err => {
+	if (!req.files)
+		return res.status(400).send('No files were uploaded.');
+
+	let filetoupload = req.files.filetoupload;
+
+	filetoupload.mv('/Users/jamesjohnson/Desktop/School Stuff/CS370ProgComp_2/uploads/' + filetoupload.name, function (err) {
+		if (err) {
 			console.log(err);
-			res.status(500).json({
-				error: err
-			});
-		});
+			return res.status(500);
+		}
+	});
+
+	res.send(filetoupload.name + ' uploaded!');
 });
 
 router.delete("/:fileID", (req, res, next) => {
 	const id = req.params.fileID;
 	File.remove({
-		_id: id
-	})
+			_id: id
+		})
 		.exec()
 		.then(result => {
 			res.status(200).json(result);
