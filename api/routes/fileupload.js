@@ -7,36 +7,7 @@ const File = require("../models/fileModel");
 router.use(fileUpload());
 
 router.get("/", (req, res, next) => {
-	File.find()
-		.exec()
-		.then(docs => {
-			console.log(docs);
-			res.status(200).json(docs);
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({
-				error: err
-			});
-		});
-});
-
-router.get("/:fileID", (req, res, next) => {
-	const id = req.params.fileID;
-	File.findById({
-			_id: id
-		})
-		.exec()
-		.then(docs => {
-			console.log(docs);
-			res.status(200).json(docs);
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({
-				error: err
-			});
-		});
+	res.sendStatus(200);
 });
 
 router.post("/", (req, res, next) => {
@@ -54,23 +25,6 @@ router.post("/", (req, res, next) => {
 	});
 
 	res.send(filetoupload.name + ' uploaded!');
-});
-
-router.delete("/:fileID", (req, res, next) => {
-	const id = req.params.fileID;
-	File.remove({
-			_id: id
-		})
-		.exec()
-		.then(result => {
-			res.status(200).json(result);
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json({
-				error: err
-			});
-		});
 });
 
 module.exports = router;

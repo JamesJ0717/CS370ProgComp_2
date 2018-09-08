@@ -6,7 +6,7 @@ const morgan = require('morgan');
 
 const fileUploadRoute = require('./api/routes/fileupload');
 
-const database = mongoose.connect("mongodb+srv://admin:" +
+mongoose.connect("mongodb+srv://admin:" +
     process.env.MONGO_ATLAS_PASSWD +
     "@cluster0-b8ovy.mongodb.net/cs370project?retryWrites=true", {
         useNewUrlParser: true
