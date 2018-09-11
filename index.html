@@ -6,24 +6,28 @@
 </head>
 
 <body>
-    <h1>It Works!</h1>
-    <form id="uploadForm" method="post" action="/fileupload" enctype="multipart/form-data" ref="uploadForm">
-        <label>Enter Your File</label><br>
+    <h1>Demos</h1>
+    <form id="uploadForm" method="POST" action="/fileupload" enctype="multipart/form-data" ref="uploadForm">
+        <label>Upload Demo</label><br>
         <input type="file" name="filetoupload" required>
-        <input type="submit" placeholder="Upload">
+        <button type="submit">Upload</button>
     </form>
 
     <br>
-    <!-- 
-    <form method="GET" action="/fileupload" id="fileDownload" ref="fileDownload" enctype="multipart/form-data">
-        <label> Download a file</label><br>
-        <input type="file" name="fileToDownload">
-        <input type="submit" placeholder="Download">
-    </form> -->
 
-    <form method="GET" action="/execute" enctype="multipart/form-data">
-        <label>createJava</label><br>
-        <input type="submit" placeholder="get">
+    <label>Docker Demo</label><br>
+    <form method="POST" action="/execute/java" enctype="multipart/form-data">
+        <button type="submit">Create Java Container</button>
+    </form>
+    <form method="GET" action="/execute/java" enctype="multipart/form-data">
+        <button type="submit">Inspect Container </button>
+    </form>
+
+    <br>
+
+    <form method="GET" action="/demojava" enctype="multipart/form-data">
+        <label>Java Demo</label><br>
+        <input type="submit" placeholder="demo">
     </form>
 
 

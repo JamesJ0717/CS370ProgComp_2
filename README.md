@@ -16,6 +16,7 @@ CS370 Programming Competition Group 2
     `express-fileupload`  
     `http`  
     `mongoose`  
-    `morgan`
+    `morgan`  
+    `node-jre`
 
 - Run `node server` to start the server

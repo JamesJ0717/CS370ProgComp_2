@@ -3,11 +3,15 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const favicon = require('serve-favicon');
+const path = require('path');
 
-const fileUploadRoute = require('./api/routes/fileupload');
+const fileDemo = require('./api/routes/fileupload');
 const loginRoute = require('./api/routes/login');
-const arbitraryName = require('./api/routes/createJava');
+const dockerDemo = require('./api/routes/createJava');
 const javaDemo = require('./api/routes/demojava');
+
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 mongoose.connect("mongodb+srv://admin:" +
     process.env.MONGO_ATLAS_PASSWD +
@@ -34,9 +38,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/fileupload', fileUploadRoute);
+app.use('/fileupload', fileDemo);
 // app.use('/login', loginRoute);
-app.use('/execute', arbitraryName);
+app.use('/execute', dockerDemo);
 app.use('/demojava', javaDemo);
 
 app.use('/', (req, res) => {

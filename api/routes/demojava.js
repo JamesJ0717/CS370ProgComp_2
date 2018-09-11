@@ -12,9 +12,9 @@ var exec = require('child_process').exec;
 var jre = require('node-jre');
 
 router.get('/', (req, res, next) => {
-    res.send('Working');
+    // res.write('Working');
 
-    var javaDir = 'java/example/path';
+    var javaDir = '../../java/example/path';
 
     // compiling the submission code
     var childS = exec('javac ' + javaDir + '/Submission.java', function (error, stdout, stderr) {
@@ -39,6 +39,8 @@ router.get('/', (req, res, next) => {
     });
 
     console.log('childS pid: ' + childS.pid);
+
+    res.sendFile(__dirname + "../../java/example/path/Evaluation.class");
 });
 
 module.exports = router;
