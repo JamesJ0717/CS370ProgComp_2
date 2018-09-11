@@ -14,7 +14,7 @@ const javaDemo = require('./api/routes/demojava');
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 mongoose.connect("mongodb+srv://admin:" +
-    process.env.MONGO_ATLAS_PASSWD +
+    "cs370password" +
     "@cluster0-b8ovy.mongodb.net/cs370project?retryWrites=true", {
         useNewUrlParser: true
     });

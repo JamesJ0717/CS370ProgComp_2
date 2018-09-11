@@ -17,6 +17,8 @@ CS370 Programming Competition Group 2
     `http`  
     `mongoose`  
     `morgan`  
-    `node-jre`
+    `nodemon`   
+    `node-jre`  
+    `serve-favicon`
 
 - Run `node server` to start the server
