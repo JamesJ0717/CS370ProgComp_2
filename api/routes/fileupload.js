@@ -1,29 +1,39 @@
 const express = require("express");
 const router = express.Router();
-const formidable = require("formidable");
-const fs = require("fs");
+const fileUpload = require('express-fileupload');
 
-router.post('/', (req, res, next) => {
-	var form = new formidable.IncomingForm();
-	form.parse(req, function (err, fields, files) {
-		var oldpath = files.filetoupload.path;
-		var newpath = '/Users/jamesjohnson/Desktop/School Stuff/CS370ProgComp_2/uploads/' + files.filetoupload.name;
-		fs.rename(oldpath, newpath, function (err) {
-			if (err) throw err;
-			res.write('File uploaded');
-			res.end();
+router.use(fileUpload());
+
+router.get("/", (req, res, next) => {
+	File.find()
+		.exec()
+		.then(docs => {
+			console.log(docs);
+			res.status(200).json(docs);
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({
+				error: err
+			});
 		});
+});
+
+router.post("/", (req, res, next) => {
+	if (!req.files) {
+		return res.status(400).send('No files were uploaded.');
+	}
+
+	var filetoupload = req.files.filetoupload;
+
+	filetoupload.mv('/Users/jamesjohnson/Desktop/School Stuff/CS370/CS370ProgComp_2/uploads/' + filetoupload.name, function (err) {
+		if (err) {
+			console.log(err);
+			return res.status(500);
+		}
 	});
-});
 
-router.get('/:fileID', (req, res, next) => {
-	var name = req.params.fileID;
-
-	res.sendFile('/Users/jamesjohnson/Desktop/School Stuff/CS370ProgComp_2/uploads/' + name);
-});
-
-router.get('/', (req, res, next) => {
-	res.sendStatus(200);
+	res.send(filetoupload.name + ' uploaded!');
 });
 
 module.exports = router;
