@@ -6,7 +6,8 @@ const morgan = require('morgan');
 
 const fileUploadRoute = require('./api/routes/fileupload');
 const loginRoute = require('./api/routes/login');
-const arbitraryName = require('./createJava');
+const arbitraryName = require('./api/routes/createJava');
+const javaDemo = require('./api/routes/demojava');
 
 mongoose.connect("mongodb+srv://admin:" +
     process.env.MONGO_ATLAS_PASSWD +
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 app.use('/fileupload', fileUploadRoute);
 // app.use('/login', loginRoute);
 app.use('/execute', arbitraryName);
+app.use('/demojava', javaDemo);
 
 app.use('/', (req, res) => {
     res.sendFile(__dirname + "/index.html");

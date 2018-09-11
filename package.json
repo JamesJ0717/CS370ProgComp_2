@@ -28,7 +28,8 @@
     "express": "^4.16.3",
     "express-fileupload": "^0.4.0",
     "http": "0.0.0",
-    "mongoose": "^5.2.13",
-    "morgan": "^1.9.0"
+    "mongoose": "^5.2.14",
+    "morgan": "^1.9.0",
+    "node-jre": "^0.2.3"
   }
 }
