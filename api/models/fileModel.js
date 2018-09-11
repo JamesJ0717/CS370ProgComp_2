@@ -1,8 +1,7 @@
-const mongoose = require('mongoose');
-
-const fileSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+//// fileSchema is what the datatypes and variable names for the type
+const fileSchema = ({
+    _id: String,
     name: String
 });
 
-module.exports = mongoose.model('File', fileSchema);
+module.exports = fileSchema;
