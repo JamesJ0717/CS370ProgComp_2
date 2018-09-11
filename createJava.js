@@ -7,7 +7,7 @@ var docker = new Docker({
     socketPath: '/var/run/docker.sock'
 });
 
-function aptUpdate(container) {
+function installJava(container) {
 
     var options = {
         Cmd: ['bash', '-c', "apt update && apt full-upgrade -y && apt install default-jdk -y"],
@@ -40,7 +40,7 @@ function newJava() {
         Cmd: ['/bin/bash']
     }, function (err, container) {
         container.start({}, function (err, data) {
-            aptUpdate(container);
+            installJava(container);
         });
     });
 }
