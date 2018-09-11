@@ -26,7 +26,7 @@ router.post("/", (req, res, next) => {
 
 	var filetoupload = req.files.filetoupload;
 
-	filetoupload.mv('/Users/jamesjohnson/Desktop/School Stuff/CS370ProgComp_2/uploads/' + filetoupload.name, function (err) {
+	filetoupload.mv('/Users/jamesjohnson/Desktop/School Stuff/CS370/CS370ProgComp_2/uploads/' + filetoupload.name, function (err) {
 		if (err) {
 			console.log(err);
 			return res.status(500);
