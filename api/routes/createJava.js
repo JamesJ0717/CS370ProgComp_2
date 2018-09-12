@@ -32,10 +32,21 @@ function installJava(container) {
     return;
 }
 
+function helloWorld() {
+    docker.run('ubuntu')
+
+}
+
+function moveSubmission(submissionName, containerName) {
+    container = docker.getContainer(containerName);
+    console.log(container.id);
+
+};
+
 function newJava() {
     docker.createContainer({
         Image: 'ubuntu',
-        // name: 'java',
+        name: 'java',
         Tty: true,
         Cmd: ['/bin/bash']
     }, function (err, container) {
@@ -45,10 +56,20 @@ function newJava() {
     });
 }
 
-router.get('/', (req, res, next) => {
+router.post('/java', (req, res, next) => {
+
     newJava();
 
-    res.send('Loading')
+    next(
+        res.send('Loading...')
+    );
+});
+
+router.get('/:containerName', (req, res, next) => {
+    const name = req.params.containerName;
+    docker.getContainer(name).inspect(function (err, data) {
+        res.send(data);
+    });
 });
 
 module.exports = router;

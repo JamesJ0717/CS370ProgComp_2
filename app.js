@@ -39,7 +39,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/fileupload', fileDemo);
-// app.use('/login', loginRoute);
+app.use('/login', loginRoute);
 app.use('/execute', dockerDemo);
 app.use('/demojava', javaDemo);
 
