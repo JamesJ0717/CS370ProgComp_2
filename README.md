@@ -10,15 +10,16 @@ CS370 Programming Competition Group 2
   - Or download a zip
 
 - Install the dependencies  
-    `body-parser`  
-    `dockerode`  
-    `express`  
-    `express-fileupload`  
-    `http`  
-    `mongoose`  
-    `morgan`  
-    `nodemon`   
-    `node-jre`  
-    `serve-favicon`
+    `body-parser`\
+    `dockerode`\
+    `express`\
+    `express-fileupload`\
+    `http`\
+    `mongoose`\
+    `morgan`\
+    `nodemon`\
+    `node-jre`\
+    `serve-favicon`\
+    `passport`
 
 - Run `node server` to start the server

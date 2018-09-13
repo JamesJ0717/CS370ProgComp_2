@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/jamesj0717/CS370ProgComp_2#readme",
   "dependencies": {
+    "alert-node": "^1.2.1",
     "body-parser": "^1.18.3",
     "dockerode": "^2.5.6",
     "express": "^4.16.3",
@@ -31,6 +32,8 @@
     "mongoose": "^5.2.14",
     "morgan": "^1.9.0",
     "node-jre": "^0.2.3",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "serve-favicon": "^2.5.0"
   }
 }

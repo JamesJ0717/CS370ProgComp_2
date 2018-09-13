@@ -2,15 +2,16 @@
 
 <head>
     <title>CS370 Programming Competition</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+
 </head>
 
 <body>
-    <form action="/login" method="POST">
-        <input type="text" name="username" placeholder="username" id="user">
-        <input type="text" name="email" placeholder="email" id="email">
-        <input type="password" name="password" placeholder="password" id="pass">
-
-        <input type="submit" value="login">
+    <h4>Enter a email, and password.</h4>
+    <form action="/login/createAccount" method="POST">
+        <input type="text" name="email" placeholder="email" required><br>
+        <input type="password" name="password" placeholder="password" required> <br>
+        <input type="submit" value="createAccount">
     </form>
 </body>
 

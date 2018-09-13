@@ -5,13 +5,13 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const favicon = require('serve-favicon');
 const path = require('path');
+const passport = require('passport');
 
-const fileDemo = require('./api/routes/fileupload');
 const loginRoute = require('./api/routes/login');
+const fileDemo = require('./api/routes/fileupload');
 const dockerDemo = require('./api/routes/createJava');
 const javaDemo = require('./api/routes/demojava');
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 mongoose.connect("mongodb+srv://admin:" +
     "cs370password" +
@@ -19,11 +19,16 @@ mongoose.connect("mongodb+srv://admin:" +
         useNewUrlParser: true
     });
 
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use(passport.initialize());
+app.use(passport.session())
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser.json());
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -38,15 +43,18 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/fileupload', fileDemo);
+app.use(express.static(__dirname + '/html'));
 app.use('/login', loginRoute);
+app.use('/fileupload', fileDemo);
 app.use('/execute', dockerDemo);
 app.use('/demojava', javaDemo);
 
+app.use('/login/signup', (req, res) => {
+    res.sendFile(__dirname + "/signup.html");
+});
 app.use('/', (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
-
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

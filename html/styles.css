@@ -1,0 +1,11 @@
+html {
+    background-color: powderblue;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto;
+    background-attachment: fixed;
+}
+
+body {
+    float: none;
+}
