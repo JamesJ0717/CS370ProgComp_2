@@ -14,13 +14,9 @@ router.post("/", (req, res, next) => {
             if (docs == null) {
                 console.log('error');
                 alert('Invalid details. Please try again', 'msg');
-                res.sendFile('index.html', {
-                    root: './'
-                });
+                res.redirect('./index.html')
             } else if (docs != null) {
-                res.sendFile('home.html', {
-                    root: './'
-                });
+                res.redirect('./home.html');
             }
         })
         .catch(err => {
@@ -45,23 +41,40 @@ router.get('/list', (req, res, next) => {
 });
 
 router.post("/createAccount", (req, res, next) => {
-    const user = new User({
-        _id: new mongoose.Types.ObjectId(),
+    User.findOne({
         email: req.body.email,
-        password: req.body.password
-    });
-    user.save().then(result => {
-            console.log(result);
-            res.sendFile('home.html', {
-                root: './'
+    }).exec().then(docs => {
+        // if the email exists
+        if (docs != null) {
+            console.log(docs);
+            console.log('Email found');
+            alert("Account with that email already exists");
+            res.sendFile('/signup.html', {
+                root: './html'
             });
-        })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({
-                error: err
+        }
+        // if the email does not exist
+        else {
+            // mongodb user schema
+            const user = new User({
+                _id: new mongoose.Types.ObjectId(),
+                email: req.body.email,
+                password: req.body.password
             });
-        });
+            user.save().then(result => {
+                    console.log(result);
+                    res.sendFile('home.html', {
+                        root: './html/'
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+        }
+    })
 });
 
 module.exports = router;
