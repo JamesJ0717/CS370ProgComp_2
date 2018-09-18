@@ -56,8 +56,8 @@ function newContainer(name) {
     }
 }
 
-router.post('/team', (req, res, next) => {
-    var name = req.body.teamName;
+router.get('/:teamName', (req, res, next) => {
+    var name = req.query.teamName;
     console.log(name);
     newContainer(name);
 
