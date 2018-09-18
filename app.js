@@ -7,9 +7,10 @@ const favicon = require('serve-favicon');
 const path = require('path');
 const passport = require('passport');
 
+const home = path.join(__dirname + '/html/home.html');
 const loginRoute = require('./api/routes/login');
 const fileDemo = require('./api/routes/fileupload');
-const dockerDemo = require('./api/routes/createJava');
+const dockerDemo = require('./api/routes/docker');
 const javaDemo = require('./api/routes/demojava');
 
 
@@ -29,7 +30,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header(
@@ -46,14 +46,19 @@ app.use((req, res, next) => {
 app.use(express.static(__dirname + '/html'));
 app.use('/login', loginRoute);
 app.use('/fileupload', fileDemo);
-app.use('/execute', dockerDemo);
+app.use('/docker', dockerDemo);
 app.use('/demojava', javaDemo);
 
 app.use('/login/signup', (req, res) => {
-    res.sendFile(__dirname + "/signup.html");
+    res.sendFile("html/signup.html", {
+        root: './'
+    });
 });
+// app.use('/home', home);
 app.use('/', (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile("index.html", {
+        root: './'
+    });
 });
 
 app.use((req, res, next) => {

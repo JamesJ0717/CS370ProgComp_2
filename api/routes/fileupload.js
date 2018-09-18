@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const fileUpload = require('express-fileupload');
+const alert = require('alert-node');
 
 router.use(fileUpload());
 
@@ -26,14 +27,18 @@ router.post("/", (req, res, next) => {
 
 	var filetoupload = req.files.filetoupload;
 
-	filetoupload.mv('/Users/jamesjohnson/Desktop/School Stuff/CS370/CS370ProgComp_2/uploads/' + filetoupload.name, function (err) {
+	filetoupload.mv('uploads/' + filetoupload.name, function (err) {
 		if (err) {
 			console.log(err);
 			return res.status(500);
 		}
+		var message = filetoupload.name + ' uploaded!';
+		console.log(message);
+		alert('File uploaded', 'msg');
 	});
-
-	res.send(filetoupload.name + ' uploaded!');
+	res.sendFile('/home.html', {
+		root: './html/'
+	})
 });
 
 module.exports = router;
