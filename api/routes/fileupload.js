@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fileUpload = require('express-fileupload');
 const alert = require('alert-node');
+const docker = require('./docker');
 
 router.use(fileUpload());
 
@@ -26,8 +27,15 @@ router.post("/", (req, res, next) => {
 	}
 
 	var filetoupload = req.files.filetoupload;
+	var fileName = filetoupload.name;
+	var fileExt = fileName.split(".").pop();
+	console.log(fileName)
+	console.log(fileExt)
 
-	filetoupload.mv('uploads/' + filetoupload.name, function (err) {
+	if ('uploads/' + fileExt) {
+		console.log('1');
+	}
+	filetoupload.mv('uploads/' + fileExt + '/' + filetoupload.name, function (err) {
 		if (err) {
 			console.log(err);
 			return res.status(500);
@@ -39,6 +47,7 @@ router.post("/", (req, res, next) => {
 	res.sendFile('/home.html', {
 		root: './html/'
 	})
+
 });
 
 module.exports = router;
