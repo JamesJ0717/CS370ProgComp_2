@@ -3,17 +3,27 @@ const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const favicon = require('serve-favicon');
+const path = require('path');
+const passport = require('passport');
 
-const fileUploadRoute = require('./api/routes/fileupload');
+const home = path.join(__dirname + '/html/home.html');
 const loginRoute = require('./api/routes/login');
-const arbitraryName = require('./createJava');
+const fileDemo = require('./api/routes/fileupload');
+const dockerDemo = require('./api/routes/docker');
+const javaDemo = require('./api/routes/demojava');
+
 
 mongoose.connect("mongodb+srv://admin:" +
-    process.env.MONGO_ATLAS_PASSWD +
+    "cs370password" +
     "@cluster0-b8ovy.mongodb.net/cs370project?retryWrites=true", {
         useNewUrlParser: true
     });
 
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+app.use(passport.initialize());
+app.use(passport.session())
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
     extended: false
@@ -33,14 +43,22 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/fileupload', fileUploadRoute);
-// app.use('/login', loginRoute);
-app.use('/execute', arbitraryName);
+app.use(express.static(__dirname + '/html'));
+app.use('/login', loginRoute);
+app.use('/fileupload', fileDemo);
+app.use('/demojava', javaDemo);
 
-app.use('/', (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+app.use('/login/signup', (req, res) => {
+    res.sendFile("html/signup.html", {
+        root: './'
+    });
 });
-
+// app.use('/home', home);
+app.use('/', (req, res) => {
+    res.sendFile("index.html", {
+        root: './'
+    });
+});
 
 app.use((req, res, next) => {
     const error = new Error('Not found');

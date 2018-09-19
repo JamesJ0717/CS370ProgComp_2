@@ -1,32 +1,21 @@
-<!DOCTYPE html>
 <html>
 
 <head>
     <title>CS370 Programming Competition</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+
 </head>
 
 <body>
-    <h1>It Works!</h1>
-    <form id="uploadForm" method="post" action="/fileupload" enctype="multipart/form-data" ref="uploadForm">
-        <label>Enter Your File</label><br>
-        <input type="file" name="filetoupload" required>
-        <input type="submit" placeholder="Upload">
+
+    <form action="/login" method="post">
+        <label>Email:</label>
+        <input type="text" name="email" required> <br>
+        <label>Password:</label>
+        <input type="password" name="password" required>
+        <input type="submit" value="Log In">
     </form>
-
-    <br>
-    <!-- 
-    <form method="GET" action="/fileupload" id="fileDownload" ref="fileDownload" enctype="multipart/form-data">
-        <label> Download a file</label><br>
-        <input type="file" name="fileToDownload">
-        <input type="submit" placeholder="Download">
-    </form> -->
-
-    <form method="GET" action="/execute" enctype="multipart/form-data">
-        <label>createJava</label><br>
-        <input type="submit" placeholder="get">
-    </form>
-
-
+    <a href="login/signup">Create an account</a>
 </body>
 
 </html>
