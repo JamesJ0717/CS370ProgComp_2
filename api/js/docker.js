@@ -113,7 +113,7 @@ function newJava(filePath, tar) {
     docker.createContainer({
         Image: 'openjdk:alpine',
         Tty: true,
-        // Cmd: ['']
+        Binds: [volumeName + ":/persisting", filePath + "Submission.java:/shared/Submission.java:ro"]
     }, function (err, container) {
         var containerName = container.id;
         console.log("Container created: " + containerName);
@@ -132,7 +132,14 @@ function newJava(filePath, tar) {
 
 function runJava(container) {
 
-    runCommand
+    runCommand(container, ['javac', '-d', '/persisting', 'shared/Submission.java'], (result) => {
+        //        listAll(container);
+        runCommand(container, ['java', '-cp', '/persisting', 'Submission', 'arbitrary arguments'], (result) => {
+            console.log(result);
+        });
+    });
+
+    return;
 }
 
 function runPython(container) {
