@@ -46,7 +46,6 @@ app.use((req, res, next) => {
 app.use(express.static(__dirname + '/html'));
 app.use('/login', loginRoute);
 app.use('/fileupload', fileDemo);
-app.use('/docker', dockerDemo);
 app.use('/demojava', javaDemo);
 
 app.use('/login/signup', (req, res) => {
