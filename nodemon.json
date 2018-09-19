@@ -1,5 +1,0 @@
-{
-    "env": {
-        "MONGO_ATLAS_PASSWD": "cs370password"
-    }
-}
