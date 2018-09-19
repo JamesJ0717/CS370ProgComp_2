@@ -34,6 +34,7 @@
     "node-jre": "^0.2.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "tar": "^4.4.6"
   }
 }
