@@ -31,7 +31,7 @@ router.post("/", (req, res, next) => {
 	var filetoupload = req.files.filetoupload;
 	var fileName = filetoupload.name;
 	var fileExt = fileName.split(".").pop();
-	var filePath = 'uploads/' + fileExt + '/' + fileName;
+	var filePath = 'uploads/' + fileName;
 
 	console.log(fileName)
 	console.log(fileExt)
@@ -47,14 +47,8 @@ router.post("/", (req, res, next) => {
 		alert('File uploaded');
 	});
 
-	tar.c({
-		gzip: true
-	}, [filePath]).pipe(fs.createWriteStream('uploads/upload.tgz'));
-	var tarPath = './uploads/upload.tgz';
-	console.log(tarPath + '\n');
-
 	// docker.newContainer('pleaseWork')
-	docker.newJava('/' + filePath, tarPath)
+	docker.fullRun(genFile, filePath, evalFile)
 
 	res.sendFile('/home.html', {
 		root: './html/'

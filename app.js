@@ -10,7 +10,7 @@ const passport = require('passport');
 const home = path.join(__dirname + '/html/home.html');
 const loginRoute = require('./api/routes/login');
 const fileDemo = require('./api/routes/fileupload');
-const dockerDemo = require('./api/routes/docker');
+const dockerDemo = require('./api/js/docker');
 const javaDemo = require('./api/routes/demojava');
 
 
