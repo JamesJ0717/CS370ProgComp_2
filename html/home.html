@@ -2,43 +2,28 @@
 
 <head>
     <title>CS370 Programming Competition</title>
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <link rel="stylesheet" type="text/css" href="/html/styles/styles.css">
 </head>
 
 <body>
     <h1>Famous Amos</h1>
     <form id="uploadForm" method="POST" action="/fileupload" enctype="multipart/form-data" ref="uploadForm">
-        <label>Upload Demo</label><br>
+        <label>Upload Files</label><br>
         <input type="file" name="filetoupload" required>
         <button type="submit">Upload</button>
+        <label style="font-size: 12;">File Size Limit: 5.24MB</label>
     </form>
 
-    <br>
+    <br> <br>
 
-    <!-- <div id="Docker Demo">
-        <label>Docker Demo</label><br>
-        <form method="GET" action="/docker/teamName" enctype="multipart/form-data">
-            <input type="text" name="teamName">
-            <button type="submit">Create New Container</button>
-        </form>
-        <form method="GET" action="/docker/containerName" enctype="multipart/form-data">
-            <input type="text" name="containerName">
-            <button type="submit">Inspect Container </button>
-        </form>
-        <form method="POST" action="/docker/list/all" enctype="multipart/form-data">
-            <button type="submit">List All Containers</button>
-        </form>
-    </div> -->
-    <!-- -->
-    <br>
-
-    <form method="GET" action="/demojava" enctype="multipart/form-data">
-        <label>Java Demo</label><br>
-        <input type="submit" placeholder="demo">
-    </form>
-
+    <img src="../public/images/maxresdefault.jpg" alt="">
 
 </body>
 
-
 </html>
+
+<style>
+    body {
+        text-align: center
+    }
+</style>

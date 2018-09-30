@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const alert = require('alert-node');
 
 const User = require('../models/Users');
+const home = '../../html/home.html'
 
 router.post("/", (req, res, next) => {
     User.findOne({
@@ -16,7 +17,7 @@ router.post("/", (req, res, next) => {
                 alert('Invalid details. Please try again', 'msg');
                 res.redirect('./index.html')
             } else if (docs != null) {
-                res.redirect('./home.html');
+                res.redirect(home)
             }
         })
         .catch(err => {
@@ -63,9 +64,7 @@ router.post("/createAccount", (req, res, next) => {
             });
             user.save().then(result => {
                     console.log(result);
-                    res.sendFile('home.html', {
-                        root: './html/'
-                    });
+                    res.sendFile(home)
                 })
                 .catch(err => {
                     console.log(err);

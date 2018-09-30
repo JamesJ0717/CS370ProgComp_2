@@ -7,5 +7,14 @@ html {
 }
 
 body {
-    float: none;
+    text-align: center;
+    font-size: 12pt;
+}
+
+h1 {
+    font-size: 36pt
+}
+
+label {
+    font-size: 16pt
 }
