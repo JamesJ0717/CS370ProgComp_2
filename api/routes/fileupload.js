@@ -46,4 +46,43 @@ router.post('/', (req, res, next) => {
     }
 });
 
+router.post('/question', (req, res, next) => {
+    if (!req.files) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    let filetoupload = req.files.filetoupload;
+    let fileName = filetoupload.name;
+    let fileExt = fileName.split('.').pop();
+    let filePath = 'uploads/questions/' + fileName;
+    let fileSize = req.headers['content-length'];
+
+    console.log(fileName);
+    console.log(fileExt);
+    console.log(filePath);
+    console.log(fileSize + ' bytes');
+
+    if (fileSize > SIZELIMIT) {
+        alert('FILE TO BIG! \nplease upload a file less than ' +
+            SIZELIMIT / 1000000 + ' megabytes');
+        res.sendFile('/hostHome.html', {
+            root: './html'
+        });
+    } else if (fileSize < SIZELIMIT) {
+        filetoupload.mv(filePath, function (err) {
+            if (err) {
+                console.log(err);
+                return res.status(500);
+            }
+            let message = filetoupload.name + ' uploaded!';
+            console.log(message);
+            alert('File Uploaded!');
+        });
+
+        res.sendFile('/hostHome.html', {
+            root: './html'
+        });
+    }
+})
+
 module.exports = router;
