@@ -1,17 +1,23 @@
 module.exports = {
     "env": {
         "browser": true,
-        "node": true
-    },
-    "extends": [
-        "google"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 6
+        "node": true,
+        "es6": true
     },
     "rules": {
-        "indent": ["error", 4],
+        "indent": ["error", 4, {
+            "MemberExpression": "off",
+            "ObjectExpression": "off",
+            "CallExpression": "off"
+        }],
         "space-before-function-paren": ["error", "always"],
-        "eol-last": ["error", "never"]
+        "semi": ["error", "never"],
+        "new-cap": ["error", {
+            "newIsCap": true,
+            "capIsNew": false
+        }]
+    },
+    "parserOptions": {
+        sourceType: "module"
     }
 };
