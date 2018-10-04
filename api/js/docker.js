@@ -1,4 +1,4 @@
-var Docker = require('dockerode')
+const Docker = require('dockerode')
 const fs = require('fs')
 const pathToCodeFiles = fs.realpathSync('java/example/path', [])
 
@@ -6,6 +6,11 @@ var docker = new Docker({
   socketPath: '/var/run/docker.sock'
 })
 
+/**
+ *Creates a docker volume
+ *@param callback
+ *@return void
+ */
 function createVolume(callback) {
   return docker.createVolume( { Labels: {} }, (err, volume) => {
     callback(volume);
@@ -13,6 +18,11 @@ function createVolume(callback) {
   })
 }
 
+/**
+ * Determines the image based on the extension of the file passed
+ * @param {*} filename 
+ * @returns image
+ */
 function imageForFile(filename) {
   ext = filename.split('.').pop()
   switch (ext) {
@@ -25,6 +35,12 @@ function imageForFile(filename) {
   }
 }
 
+/**
+ * Creates a container based on the image passed
+ * @param {*} image 
+ * @param {*} binds 
+ * @param {*} callback 
+ */
 function createContainer(image, binds, callback) {
   docker.createContainer({
       Image: image,
@@ -40,6 +56,12 @@ function createContainer(image, binds, callback) {
   )
 }
 
+/**
+ * Runs a command in the container passed in
+ * @param {*} container 
+ * @param {*} cmd 
+ * @param {*} callback 
+ */
 function execute(container, cmd, callback = null) {
   container.exec({
       Cmd: ['sh', '-c', cmd],
@@ -68,6 +90,12 @@ function execute(container, cmd, callback = null) {
   )
 }
 
+/**
+ * Compiles or runs the code that's passed in
+ * @param {*} inputFile the input for the submission
+ * @param {*} codeFile submission file
+ * @param {*} outputFile where to output the output from the code
+ */
 function runCodeCmd(inputFile, codeFile, outputFile) {
   var parts = codeFile.split('.')
   var ext = parts.pop()
@@ -91,6 +119,12 @@ function runCodeCmd(inputFile, codeFile, outputFile) {
   }
 }
 
+/**
+ * Runs the generation file
+ * @param {*} genFile 
+ * @param {*} volG 
+ * @param {*} callback 
+ */
 function runGenFile(genFile, volG, callback) {
   binds = [
     volG.name + ':/generated',
