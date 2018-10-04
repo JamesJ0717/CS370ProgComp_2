@@ -1,8 +1,6 @@
 var Docker = require('dockerode')
-const express = require('express')
-const router = express.Router()
 const fs = require('fs')
-const pathToCodeFiles = fs.realpathSync('java/example/path', []) + '/'
+const pathToCodeFiles = fs.realpathSync('java/example/path', [])
 
 var docker = new Docker({
   socketPath: '/var/run/docker.sock'
