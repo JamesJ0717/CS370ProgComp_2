@@ -4,6 +4,7 @@ const fileUpload = require('express-fileupload');
 const alert = require('alert-node');
 const docker = require('../js/docker');
 const home = '../../html/home.html';
+const fs = require('fs')
 
 const SIZELIMIT = 5240000;
 
@@ -26,7 +27,7 @@ router.post('/', (req, res, next) => {
     console.log(fileSize + ' bytes');
 
     if (fileSize > SIZELIMIT) {
-        alert('FILE TO BIG! \nplease upload a file less than ' +
+        alert('FILE TOO BIG! \nplease upload a file less than ' +
             SIZELIMIT / 1000000 + ' megabytes');
         res.redirect(home);
     } else if (fileSize < SIZELIMIT) {
@@ -40,7 +41,7 @@ router.post('/', (req, res, next) => {
             alert('File Uploaded!');
         });
 
-        // docker.fullRun(genFile, filePath, evalFile)
+        docker.fullRun(filePath, 'java/example/path/Submission.java', 'java/example/path/Evaluation.java', result => { alert(result); })
 
         res.redirect(home);
     }

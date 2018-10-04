@@ -1,6 +1,5 @@
 const Docker = require('dockerode')
 const fs = require('fs')
-const pathToCodeFiles = fs.realpathSync('java/example/path', [])
 
 var docker = new Docker({
   socketPath: '/var/run/docker.sock'
@@ -14,7 +13,7 @@ var docker = new Docker({
 function createVolume(callback) {
   return docker.createVolume( { Labels: {} }, (err, volume) => {
     callback(volume);
-    volume.remove({}).then(() => {console.log("REMOVED")});
+//    volume.remove({}).then(() => {console.log("REMOVED")});
   })
 }
 
@@ -73,7 +72,7 @@ function execute(container, cmd, callback = null) {
         if (callback) {
           var result = ''
           stream.on('data', function (chunk) {
-            result += Buffer([...chunk].slice(8)).toString('utf8') // the first byte is not wanted
+            result += /*Buffer([...chunk].slice(8))*/chunk.toString('utf8') // the first byte is not wanted
           })
 
           stream.on('end', function () {
@@ -128,13 +127,10 @@ function runCodeCmd(inputFile, codeFile, outputFile) {
 function runGenFile(genFile, volG, callback) {
   binds = [
     volG.name + ':/generated',
-    pathToCodeFiles + genFile + ':/' + genFile + ':ro'
+    fs.realpathSync(genFile, []) + ':/' + genFile + ':ro'
   ]
   createContainer(imageForFile(genFile), binds, cont => {
-    execute(cont, runCodeCmd(null, genFile, 'generated/file.txt'), () => {
-      callback();
-//      cont.kill({}).then((c) => { console.log("REMOVED"); return c.remove({})});
-    })
+    execute(cont, runCodeCmd(null, genFile, 'generated/file.txt'), callback)
   })
 }
 
@@ -142,13 +138,10 @@ function runSubFile(subFile, volG, volS, callback) {
   binds = [
     volG.name + ':/generated:ro',
     volS.name + ':/output',
-    pathToCodeFiles + subFile + ':/' + subFile + ':ro'
+    fs.realpathSync(subFile, []) + ':/' + subFile + ':ro'
   ]
   createContainer(imageForFile(subFile), binds, cont => {
-    execute(cont, runCodeCmd('generated/file.txt', subFile, 'output/file.txt'), () => {
-      callback()
-//      cont.kill({}).then((c) => { console.log("REMOVED"); return c.remove({})});
-    })
+    execute(cont, runCodeCmd('generated/file.txt', subFile, 'output/file.txt'), callback)
   })
 }
 
@@ -156,27 +149,21 @@ function runEvalFile(evalFile, volG, volS, callback) {
   binds = [
     volG.name + ':/generated:ro',
     volS.name + ':/output:ro',
-    pathToCodeFiles + evalFile + ':/' + evalFile + ':ro'
+    fs.realpathSync(evalFile, []) + ':/' + evalFile + ':ro'
   ]
   createContainer(imageForFile(evalFile), binds, cont => {
-    execute(cont, runCodeCmd(null, evalFile, null), () => {
-      callback()
-//      cont.kill({}).then((c) => { console.log("REMOVED"); return c.remove({})});
-    })
+    execute(cont, runCodeCmd(null, evalFile, null), callback)
   })
 }
 
 function fullRun(genFile, subFile, evalFile, callback) {
+  console.log("Running...")
+
   createVolume(volG => {
     createVolume(volS => {
       runGenFile(genFile, volG, () => {
         runSubFile(subFile, volG, volS, () => {
-          runEvalFile(evalFile, volG, volS, () => {
-            binds = [volG.name + ':/generated:ro', volS.name + ':/output:ro']
-            createContainer(imageForFile(evalFile), binds, cont => {
-              execute(cont, 'ls -las && cat generated/file.txt', callback)
-            })
-          })
+          runEvalFile(evalFile, volG, volS, callback)
         })
       })
     })
@@ -188,9 +175,7 @@ function fullRun(genFile, subFile, evalFile, callback) {
 // wc -c shared/Submission.java | grep -o -m 1 "[[:digit:]]*
 
 
-fullRun('Generation.py', 'Submission.java', 'Evaluation.java', result => {
-  console.log(result)
-})
+fullRun('java/example/path/Generation.py', 'java/example/path/Submission.java', 'java/example/path/Evaluation.java', result => { console.log(result) })
 
 module.exports = {
   fullRun
