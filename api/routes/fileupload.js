@@ -41,7 +41,7 @@ router.post('/', (req, res, next) => {
             alert('File Uploaded!');
         });
 
-        docker.fullRun(filePath, 'java/example/path/Submission.java', 'java/example/path/Evaluation.java', result => { alert(result); })
+        docker.fullRun('java/example/path/Generation.py', filePath, 'java/example/path/Evaluation.java', result => { alert(result); })
 
         res.redirect(home);
     }

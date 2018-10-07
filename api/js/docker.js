@@ -1,5 +1,6 @@
 const Docker = require('dockerode')
 const fs = require('fs')
+const path = require('path')
 
 var docker = new Docker({
   socketPath: '/var/run/docker.sock'
@@ -72,7 +73,7 @@ function execute(container, cmd, callback = null) {
         if (callback) {
           var result = ''
           stream.on('data', function (chunk) {
-            result += /*Buffer([...chunk].slice(8))*/chunk.toString('utf8') // the first byte is not wanted
+            result += Buffer([...chunk].slice(8)).toString('utf8') // the first byte is not wanted
           })
 
           stream.on('end', function () {
@@ -104,13 +105,13 @@ function runCodeCmd(inputFile, codeFile, outputFile) {
     case 'java':
       var s = 'javac ' + name + '.java && java ' + name
       if (inputFile) s += ' < ' + inputFile
-      s += ' > ' + outputFile
+      if (outputFile) s += ' > ' + outputFile
 
       return s
     case 'py':
       var s = 'python ' + name + '.py'
       if (inputFile) s += ' < ' + inputFile
-      s += ' > ' + outputFile
+      if (outputFile) s += ' > ' + outputFile
 
       return s
     default:
@@ -125,39 +126,42 @@ function runCodeCmd(inputFile, codeFile, outputFile) {
  * @param {*} callback 
  */
 function runGenFile(genFile, volG, callback) {
+  filename = path.basename(genFile);
   binds = [
     volG.name + ':/generated',
-    fs.realpathSync(genFile, []) + ':/' + genFile + ':ro'
+    fs.realpathSync(genFile, []) + ':/' + filename + ':ro'
   ]
-  createContainer(imageForFile(genFile), binds, cont => {
-    execute(cont, runCodeCmd(null, genFile, 'generated/file.txt'), callback)
+  createContainer(imageForFile(filename), binds, cont => {
+    execute(cont, runCodeCmd(null, filename, 'generated/file.txt'), callback)
   })
 }
 
 function runSubFile(subFile, volG, volS, callback) {
+  filename = path.basename(subFile);
   binds = [
     volG.name + ':/generated:ro',
     volS.name + ':/output',
-    fs.realpathSync(subFile, []) + ':/' + subFile + ':ro'
+    fs.realpathSync(subFile, []) + ':/' + filename + ':ro'
   ]
-  createContainer(imageForFile(subFile), binds, cont => {
-    execute(cont, runCodeCmd('generated/file.txt', subFile, 'output/file.txt'), callback)
+  createContainer(imageForFile(filename), binds, cont => {
+    execute(cont, runCodeCmd('generated/file.txt', filename, 'output/file.txt'), callback)
   })
 }
 
 function runEvalFile(evalFile, volG, volS, callback) {
+  filename = path.basename(evalFile);
   binds = [
     volG.name + ':/generated:ro',
     volS.name + ':/output:ro',
-    fs.realpathSync(evalFile, []) + ':/' + evalFile + ':ro'
+    fs.realpathSync(evalFile, []) + ':/' + filename + ':ro'
   ]
-  createContainer(imageForFile(evalFile), binds, cont => {
-    execute(cont, runCodeCmd(null, evalFile, null), callback)
+  createContainer(imageForFile(filename), binds, cont => {
+    execute(cont, runCodeCmd(null, filename, null), callback)
   })
 }
 
 function fullRun(genFile, subFile, evalFile, callback) {
-  console.log("Running...")
+  console.log("Starting Full Run...")
 
   createVolume(volG => {
     createVolume(volS => {
@@ -175,7 +179,7 @@ function fullRun(genFile, subFile, evalFile, callback) {
 // wc -c shared/Submission.java | grep -o -m 1 "[[:digit:]]*
 
 
-fullRun('java/example/path/Generation.py', 'java/example/path/Submission.java', 'java/example/path/Evaluation.java', result => { console.log(result) })
+//fullRun('java/example/path/Generation.py', 'java/example/path/Submission.java', 'java/example/path/Evaluation.java', result => { console.log(result) })
 
 module.exports = {
   fullRun
