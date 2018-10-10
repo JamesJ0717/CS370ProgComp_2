@@ -4,7 +4,8 @@ const fileUpload = require('express-fileupload');
 const alert = require('alert-node');
 const docker = require('../js/docker');
 const home = '../../html/home.html';
-const fs = require('fs')
+const hostHome = '../../html/hostHome.html';
+const fs = require('fs');
 
 const SIZELIMIT = 5240000;
 
@@ -12,7 +13,8 @@ router.use(fileUpload());
 
 router.post('/', (req, res, next) => {
     if (!req.files) {
-        return res.status(400).send('No files were uploaded.');
+        alert('No files were uploaded.');
+        return res.status(400);
     }
 
     let filetoupload = req.files.filetoupload;
@@ -27,11 +29,14 @@ router.post('/', (req, res, next) => {
     console.log(fileSize + ' bytes');
 
     if (fileSize > SIZELIMIT) {
-        alert('FILE TOO BIG! \nplease upload a file less than ' +
-            SIZELIMIT / 1000000 + ' megabytes');
+        alert(
+            'FILE TOO BIG! \nplease upload a file less than ' +
+                SIZELIMIT / 1000000 +
+                ' megabytes',
+        );
         res.redirect(home);
     } else if (fileSize < SIZELIMIT) {
-        filetoupload.mv(filePath, function (err) {
+        filetoupload.mv(filePath, function(err) {
             if (err) {
                 console.log(err);
                 return res.status(500);
@@ -41,7 +46,14 @@ router.post('/', (req, res, next) => {
             alert('File Uploaded!');
         });
 
-        docker.fullRun('java/example/path/Generation.py', filePath, 'java/example/path/Evaluation.java', result => { alert(result); })
+        docker.fullRun(
+            'java/example/path/Generation.py',
+            filePath,
+            'java/example/path/Evaluation.java',
+            result => {
+                alert(result);
+            },
+        );
 
         res.redirect(home);
     }
@@ -49,7 +61,8 @@ router.post('/', (req, res, next) => {
 
 router.post('/question', (req, res, next) => {
     if (!req.files) {
-        return res.status(400).send('No files were uploaded.');
+        alert('No files were uploaded.');
+        return res.status(400);
     }
 
     let filetoupload = req.files.filetoupload;
@@ -64,13 +77,16 @@ router.post('/question', (req, res, next) => {
     console.log(fileSize + ' bytes');
 
     if (fileSize > SIZELIMIT) {
-        alert('FILE TO BIG! \nplease upload a file less than ' +
-            SIZELIMIT / 1000000 + ' megabytes');
+        alert(
+            'FILE TO BIG! \nplease upload a file less than ' +
+                SIZELIMIT / 1000000 +
+                ' megabytes',
+        );
         res.sendFile('/hostHome.html', {
-            root: './html'
+            root: './html',
         });
     } else if (fileSize < SIZELIMIT) {
-        filetoupload.mv(filePath, function (err) {
+        filetoupload.mv(filePath, function(err) {
             if (err) {
                 console.log(err);
                 return res.status(500);
@@ -81,9 +97,9 @@ router.post('/question', (req, res, next) => {
         });
 
         res.sendFile('/hostHome.html', {
-            root: './html'
+            root: './html',
         });
     }
-})
+});
 
 module.exports = router;
