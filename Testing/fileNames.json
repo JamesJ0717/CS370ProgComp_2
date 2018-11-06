@@ -1,0 +1,19 @@
+[
+    "dir.py",
+    "loginTest.py",
+    "names.json",
+    "fileNames.json",
+    "fileUploadTest.py",
+    "../index.html",
+    "../server.js",
+    "../java/example/path/Evaluation.java",
+    "../java/example/path/Generation.py",
+    "../java/example/path/Submission.java",
+    "../java/example/path/Submission.py",
+    "../java/example/path/temp.txt",
+    "../html/home.html",
+    "../html/hostHome.html",
+    "../html/signup.html",
+    "../package.json",
+    "../app.js"
+]

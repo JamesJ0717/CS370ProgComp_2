@@ -9,7 +9,7 @@
     <h1>Famous Amos</h1>
     <form id="uploadForm" method="POST" action="/fileupload" enctype="multipart/form-data" ref="uploadForm">
         <label>Upload Submission</label><br>
-        <input type="file" name="filetoupload" required>
+        <input id="File" type="file" name="filetoupload" required>
         <button type="submit" onclick="myAlert()">Upload</button>
         <label style="font-size: 12;">File Size Limit: 5.24MB</label>
     </form>
@@ -19,9 +19,13 @@
     <img src="../public/images/maxresdefault.jpg" alt="">
 
 </body>
+
 <script>
     function myAlert() {
-        alert("File uploading...")
+        if (document.getElementById("File").value == "")
+            alert("No file")
+        else
+            alert("File uploading...")
     }
 </script>
 

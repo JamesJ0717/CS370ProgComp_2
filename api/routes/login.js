@@ -15,7 +15,7 @@ router.post('/', (req, res, next) => {
             console.log(docs)
             if (docs == null) {
                 console.log('error')
-                alert('Invalid details. Please try again', 'msg')
+                // alert('Invalid details. Please try again', 'msg')
                 res.redirect('./index.html')
             } else if (docs != null) {
                 if (docs.group == 'Host') {
@@ -49,7 +49,7 @@ router.post('/createAccount', (req, res, next) => {
             if (docs != null) {
                 console.log(docs)
                 console.log('Email found')
-                alert('Account with that email already exists')
+                // alert('Account with that email already exists')
                 res.sendFile('/signup.html', {
                     root: './html',
                 })

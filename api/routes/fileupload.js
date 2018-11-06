@@ -25,37 +25,44 @@ router.post('/', (req, res, next) => {
 
     console.log(fileName);
     console.log(fileExt);
-    console.log(filePath);
-    console.log(fileSize + ' bytes');
+    // console.log(filePath);
+    // console.log(fileSize + ' bytes');
 
-    if (fileSize > SIZELIMIT) {
-        alert(
-            'FILE TOO BIG! \nplease upload a file less than ' +
+    if (fileExt === 'py' || fileExt === 'java') {
+        if (fileSize > SIZELIMIT) {
+            alert(
+                'FILE TOO BIG! \nplease upload a file less than ' +
                 SIZELIMIT / 1000000 +
                 ' megabytes',
-        );
-        res.redirect(home);
-    } else if (fileSize < SIZELIMIT) {
-        filetoupload.mv(filePath, function(err) {
-            if (err) {
-                console.log(err);
-                return res.status(500);
-            }
-            let message = filetoupload.name + ' uploaded!';
-            console.log(message);
-            alert('File Uploaded!');
-        });
+            );
+            res.redirect(home);
+        } else if (fileSize < SIZELIMIT) {
+            filetoupload.mv(filePath, function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.status(500);
+                }
+                let message = filetoupload.name + ' uploaded!';
+                console.log(message);
+                // alert('File Uploaded!');
+            });
 
-        docker.fullRun(
-            'java/example/path/Generation.py',
-            filePath,
-            'java/example/path/Evaluation.java',
-            result => {
-                alert(result);
-            },
-        );
+            docker.fullRun(
+                'java/example/path/Generation.py',
+                filePath,
+                'java/example/path/Evaluation.java',
+                result => {
+                    // alert(result);
+                    console.log(result)
+                },
+            );
 
-        res.redirect(home);
+            res.status(200).redirect(home);
+        }
+    } else {
+        // alert('Not accepted')
+        console.log('Not accepted')
+        res.status(404).redirect(home)
     }
 });
 
@@ -76,17 +83,22 @@ router.post('/question', (req, res, next) => {
     console.log(filePath);
     console.log(fileSize + ' bytes');
 
+    if (fileExt != 'py') {
+        alert('Not accepted')
+        return res.send(202)
+    }
+
     if (fileSize > SIZELIMIT) {
         alert(
             'FILE TO BIG! \nplease upload a file less than ' +
-                SIZELIMIT / 1000000 +
-                ' megabytes',
+            SIZELIMIT / 1000000 +
+            ' megabytes',
         );
         res.sendFile('/hostHome.html', {
             root: './html',
         });
     } else if (fileSize < SIZELIMIT) {
-        filetoupload.mv(filePath, function(err) {
+        filetoupload.mv(filePath, function (err) {
             if (err) {
                 console.log(err);
                 return res.status(500);
@@ -100,6 +112,7 @@ router.post('/question', (req, res, next) => {
             root: './html',
         });
     }
+
 });
 
 module.exports = router;
