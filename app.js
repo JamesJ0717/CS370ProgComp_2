@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const favicon = require('serve-favicon');
 const path = require('path');
-const passport = require('passport');
 
 const loginRoute = require('./api/routes/login');
 const fileDemo = require('./api/routes/fileupload');
@@ -18,9 +17,9 @@ mongoose.connect('mongodb+srv://admin:cs370password@cluster0-b8ovy.mongodb.net/c
 // set the favicon
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-// secure password handling
-app.use(passport.initialize());
-app.use(passport.session());
+// // secure password handling
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // console output color coded for developing
 app.use(morgan('dev'));

@@ -1,22 +1,26 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const alert = require('alert-node')
+const express = require('express');
+const mongoose = require('mongoose');
+const sha256 = require('js-sha256')
 
 const router = express.Router()
 const User = require('../models/Users')
 
 router.post('/', (req, res, next) => {
+    let userPass = sha256(req.body.password)
     User.findOne({
             email: req.body.email,
-            password: req.body.password
+            password: userPass
         })
         .exec()
         .then((docs) => {
             console.log(docs)
             if (docs == null) {
                 console.log('error')
-                // alert('Invalid details. Please try again', 'msg')
+                // popup.window('Failure')
                 res.redirect('./index.html')
+                return ({
+                    success: false
+                })
             } else if (docs != null) {
                 if (docs.group == 'Host') {
                     res.sendFile('/hostHome.html', {
@@ -56,10 +60,11 @@ router.post('/createAccount', (req, res, next) => {
                 // if the email does not exist
             } else {
                 // mongodb user schema
+                let shadPass = sha256(req.body.password)
                 const user = new User({
                         _id: new mongoose.Types.ObjectId(),
                         email: req.body.email,
-                        password: req.body.password,
+                        password: shadPass,
                         group: req.body.group
                     })
                     .save()

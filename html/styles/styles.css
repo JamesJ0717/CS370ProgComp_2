@@ -18,3 +18,9 @@ h1 {
 label {
     font-size: 12pt
 }
+
+.whoweare {
+    font-size: 10pt;
+    text-align: center;
+    width: 50%;
+}
