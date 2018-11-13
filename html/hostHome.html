@@ -10,7 +10,10 @@
     <h1>Welcome Host!</h1>
     <p>Upload your question here.</p>
     <form method="POST" action="/fileupload/question" enctype="multipart/form-data">
-        <input type="file" name="filetoupload" required>
+        <label style="font-size: 12;">Gen:</label>
+        <input type="file" name="genfiletoupload" required>
+        <label style="font-size: 12;">Eval:</label>
+        <input type="file" name="evalfiletoupload" required>
         <button type="submit" onclick="myAlert()">Upload</button>
         <label style="font-size: 12;">File Size Limit: 5.24MB</label>
     </form>

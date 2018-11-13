@@ -77,7 +77,7 @@ function execute(container, cmd, callback = null) {
           })
 
           stream.on('end', function () {
-            callback(result)
+            callback(result.trim())
           })
         }
         /*
@@ -144,7 +144,7 @@ function runSubFile(subFile, volG, volS, callback) {
     fs.realpathSync(subFile, []) + ':/' + filename + ':ro'
   ]
   createContainer(imageForFile(filename), binds, cont => {
-    execute(cont, runCodeCmd('generated/file.txt', filename, 'output/file.txt'), callback)
+    execute(cont, '/usr/bin/time -f "%S %M" -o output/stats.txt ' + runCodeCmd('generated/file.txt', filename, 'output/file.txt'), callback)
   })
 }
 
@@ -165,8 +165,17 @@ function fullRun(genFile, subFile, evalFile, callback) {
 
   createVolume(volG => {
     createVolume(volS => {
-      runGenFile(genFile, volG, () => {
-        runSubFile(subFile, volG, volS, () => {
+      runGenFile(genFile, volG, (txt) => {
+      if(txt != "") {
+        callback("ERROR: " + txt)
+        return
+      }
+      runSubFile(subFile, volG, volS, (txt) => {
+          if(txt != "") {
+            callback("ERROR: " + txt)
+            return
+          }
+          
           runEvalFile(evalFile, volG, volS, callback)
         })
       })
@@ -174,12 +183,18 @@ function fullRun(genFile, subFile, evalFile, callback) {
   })
 }
 
+// docker stats --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}" -a   ---list all current containers, with memory and cpu usage---
 // docker stop $(docker container ls -q) && docker rm $(docker container ls -aq)  ---to remove all docker containers---
 // docker volume rm $(docker volume list -q)   ---to remove all docker volumes---
 // wc -c shared/Submission.java | grep -o -m 1 "[[:digit:]]*
 
-
-//fullRun('java/example/path/Generation.py', 'java/example/path/Submission.java', 'java/example/path/Evaluation.java', result => { console.log(result) })
+fullRun('java/example/path/Generation_Pluck_Drop_Specific.py',
+        'java/example/path/Submission_Pluck_Drop_Specific.java',
+        'java/example/path/Evaluation_Pluck_Drop.java', result => {
+  console.log("-------------- RESULT -------------")
+  console.log(result)
+  console.log("-----------------------------------")
+})
 
 module.exports = {
   fullRun
