@@ -6,11 +6,13 @@
                     <router-link to='/' exact>Home</router-link>
                 </li>
                 <li>
+                    <router-link to='/about' exact>About Us</router-link>
+                </li>
+                <li>
                     <router-link to='/login' exact>Login</router-link>
                 </li>
             </ul>
             <img src='../../assets/logo.png' id='logo' height="64px" width="64px">
-            <h1>Welcome to OPC!</h1>
         </nav>
     </div>
 </template>
@@ -51,6 +53,7 @@ nav {
   padding: 10px 0;
   margin-bottom: 20px;
   height: 84px;
+  width: 100%;
 }
 
 .router-link-active {

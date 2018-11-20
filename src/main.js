@@ -4,21 +4,18 @@ import Vue from 'vue'
 import App from './App'
 import Router from './router'
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
+import Axios from 'axios'
+// const Express = require('express')
 
 Vue.config.productionTip = false
 
-Vue.use(VueResource)
 Vue.use(VueRouter)
-
-const router = new VueRouter({
-    routes: Router,
-    mode: 'history'
-})
+// Vue.use(Express())
+Vue.prototype.$http = Axios
 
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
-    router: router,
+    router: Router,
     render: h => h(App)
 })

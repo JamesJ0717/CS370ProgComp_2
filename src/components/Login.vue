@@ -1,10 +1,19 @@
 <template>
     <div class="login">
-        <form action="../routes/login.js" method="POST">
-            <label>Email: </label> <input v-bind="user.email" value='' required type="text"> <br>
-            <label>Password: </label> <input v-bind="user.password" value='' required type="password">
-            <button type="submit">Login</button>
-        </form>
+            <label for='email'>Email: </label> 
+            <div>
+              <input v-model="email" id='email' required type="text"> <br>
+            </div>
+            <div>
+              <label>Password: </label> 
+              <div>
+                <input v-model="password" id='password' required type="password">
+              </div>
+            </div>
+            <button type="submit" @click="postLogin()">Login</button>
+            <br><br>
+            <p>Don't have an account?</p>
+            <a href="/register">Create one now</a>
     </div>
 </template>
 
@@ -13,11 +22,23 @@ export default {
   name: 'Login',
   data() {
     return {
-      user: {
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
     }
+  },
+  methods: {
+    postLogin() {
+      let url = 'http://localhost:9999/login'
+      this.$http
+        .post(url, {
+          email: this.email,
+          password: this.password,
+        })
+        .then(response => {
+          localStorage.setItem('user', JSON.stringify(response.data.user))
+          localStorage.setItem('jwt', response.data.token)
+        })
+    },
   },
 }
 </script>
