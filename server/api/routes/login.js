@@ -1,5 +1,6 @@
 const express = require('express');
-const db = require('../../app')
+const DB = require('../../db')
+const db = new DB('sqlite3')
 const config = require('../../config')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -12,7 +13,8 @@ function success(boolean) {
 
 router.post('/', (req, res, next) => {
     console.log("POST to login")
-    db.db.selectByEmail(req.body.email, (err, user) => {
+    let userPass = req.body.password
+    db.selectByEmail(req.body.email, (err, user) => {
         console.log('selectByEmail')
         if (err) {
             console.log(err)

@@ -1,6 +1,9 @@
 <template>
-    <div id='Header'>
+    <div id='Header' v-on:load="logged()">
         <nav>
+            <li>
+                <router-link class='logo' to='/dashboard' exact><img id='logo' src='../../assets/logo.png' height="64px" width="64px"></router-link>
+            </li>
             <ul>
                 <li>
                     <router-link to='/' exact>Home</router-link>
@@ -9,61 +12,77 @@
                     <router-link to='/about' exact>About Us</router-link>
                 </li>
                 <li>
-                    <router-link to='/login' exact>Login</router-link>
+                    <router-link to='/login' exact>{{ option }}</router-link>
                 </li>
             </ul>
-            <img src='../../assets/logo.png' id='logo' height="64px" width="64px">
         </nav>
     </div>
 </template>
 
 <script>
-export default {}
+export default {
+    data() {
+        return {
+            option: 'Login'
+        }
+    },
+    computed: {
+        logged: function() {
+            if(localStorage.getItem('user') != null)
+                option = 'Logout'
+        }
+    }
+}
 </script>
 
-<style scoped>
-h1 {
+<style lang="sass" scoped>
+h1 
   font-size: 28pt;
   text-align: center;
   color: aquamarine;
   margin-top: 15px;
-}
 
-ul {
+
+ul 
   list-style-type: none;
   text-align: right;
   margin: 0;
   float: right;
-}
 
-li {
+
+li
   display: inline-block;
   margin: 0 10px;
-}
 
-a {
+
+a
   color: #fff;
   text-decoration: none;
   padding: 6px 8px;
   border-radius: 10px;
-}
 
-nav {
+nav 
   background: #444;
   padding: 10px 0;
   margin-bottom: 20px;
   height: 84px;
   width: 100%;
-}
 
-.router-link-active {
+
+.router-link-active 
+  .logo 
+    background: #444;
+    color: #eee;
   background: #eee;
   color: #444;
-}
 
-#logo {
+.logo
+    background: #444;
+    color: #eee
+
+#logo 
   text-align: left;
   padding: 10px;
   float: left;
-}
+
 </style>

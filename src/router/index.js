@@ -14,10 +14,7 @@ let router = new VueRouter({
         }, {
             path: '/about',
             name: 'About',
-            component: About,
-            meta: {
-                guest: true
-            }
+            component: About
         }, {
             path: '/login',
             name: 'Login',

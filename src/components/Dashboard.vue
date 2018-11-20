@@ -1,6 +1,6 @@
 <template>
-    <div id="dash">
-        <h2> {{ getName }} </h2>
+    <div id="dash" v-on:load="updateName()">
+        <h2> {{ name }} </h2>
         <ul>
             <li>
                 <a href='competition1'>Comp 1</a>
@@ -20,11 +20,12 @@ export default {
       competitions: '',
     }
   },
-  computed: {
-    getName: function() {
-      let user = localStorage.getItem('user')
-      this.name = user.name
-    },
+  methods: {
+    updateName() {
+      let user = JSON.parse(localStorage.getItem('user'))
+      name = user.name
+
+    }
   },
 }
 </script>

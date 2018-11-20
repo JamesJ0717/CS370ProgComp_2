@@ -5,7 +5,6 @@ import App from './App'
 import Router from './router'
 import VueRouter from 'vue-router'
 import Axios from 'axios'
-// const Express = require('express')
 
 Vue.config.productionTip = false
 
