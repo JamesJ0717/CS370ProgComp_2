@@ -1,6 +1,9 @@
 <template>
-    <div id='Header'>
+    <div id='Header' v-on:load="logged()">
         <nav>
+            <li>
+                <router-link class='logo' to='/dashboard' exact><img id='logo' src='../../assets/logo.png' height="64px" width="64px"></router-link>
+            </li>
             <ul>
                 <li>
                     <router-link to='/' exact>Home</router-link>
@@ -12,16 +15,27 @@
                     <router-link to='/about' exact>About Us</router-link>
                 </li>
                 <li>
-                    <router-link to='/login' exact>Login</router-link>
+                    <router-link to='/login' exact>{{ option }}</router-link>
                 </li>
             </ul>
-            <img src='../../assets/logo.png' id='logo' height="64px" width="64px">
         </nav>
     </div>
 </template>
 
 <script>
-export default {}
+export default {
+    data() {
+        return {
+            option: 'Login'
+        }
+    },
+    computed: {
+        logged: function() {
+            if(localStorage.getItem('user') != null)
+                option = 'Logout'
+        }
+    }
+}
 </script>
 
 <style scoped>
