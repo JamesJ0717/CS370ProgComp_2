@@ -19,7 +19,6 @@ class Db {
     }
 
     selectByEmail(email, callback) {
-        console.log("Select by email")
         return this.db.get(
             `SELECT * FROM user WHERE email = ?`,
             [email],
@@ -29,7 +28,6 @@ class Db {
     }
 
     insertAdmin(user, callback) {
-        console.log('insertAdmin')
         return this.db.run(
             'INSERT INTO user (name,email,user_pass,is_host) VALUES (?,?,?,?)',
             user, (err) => {
@@ -44,11 +42,27 @@ class Db {
     }
 
     insert(user, callback) {
-        console.log('insert');
         return this.db.run(
             'INSERT INTO user (name,email,user_pass) VALUES (?,?,?)',
             user, (err) => {
                 callback(err)
+            })
+    }
+
+    createCompetition(comp, callback) {
+        return this.db.run(
+            'INSERT INTO competitions (name,question,start,end) VALUES (?,?,?,?)',
+            comp, (err) => {
+                callback(err)
+            })
+    }
+
+    selectByName(name, callback) {
+        return this.db.get(
+            'SELECT * FROM competitions WHERE name = ?',
+            [name],
+            function (err, row) {
+                callback(err, row)
             })
     }
 }

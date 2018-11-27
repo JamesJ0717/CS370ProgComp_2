@@ -7,11 +7,6 @@ const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
-function checkInsert(err) {
-
-}
-
-
 router.post('/', (req, res) => {
     console.log("POST to /")
     db.insert([
@@ -20,7 +15,13 @@ router.post('/', (req, res) => {
             bcrypt.hashSync(req.body.password, 8)
         ],
         function (err) {
-            if (err) return res.status(500).send("There was a problem registering the user.")
+            if (err) {
+                console.log(err)
+                return res.json({
+                    message: "There was a problem registering the user.",
+                    cause: 'email'
+                }).status(500)
+            }
             db.selectByEmail(req.body.email, (err, user) => {
                 if (err) return res.status(500).send("There was a problem getting the user.")
                 let token = jwt.sign({

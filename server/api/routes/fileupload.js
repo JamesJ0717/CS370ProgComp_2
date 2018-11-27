@@ -4,10 +4,7 @@ const fileUpload = require('express-fileupload');
 const docker = require('../js/docker');
 const home = '../../html/home.html';
 const hostHome = '../../html/hostHome.html';
-const mongoose = require('mongoose')
 const fs = require('fs');
-
-const fileSchema = require('../models/fileModel')
 
 const SIZELIMIT = 5240000;
 
@@ -20,21 +17,6 @@ function filesForCID(cid) {
 }
 
 //console.log(filesForCID('y30Hk'));
-
-// function addToDb(fileName, team) {
-//     const file = new fileSchema({
-//             _id: new mongoose.Types.ObjectId(),
-//             name: fileName,
-//             team: team
-//         })
-//         .save()
-//         .catch((err) => {
-//             console.log(err)
-//             res.status(500).json({
-//                 error: err
-//             })
-//         })
-// }
 
 router.post('/', (req, res, next) => {
     if (!req.files) {
@@ -66,8 +48,6 @@ router.post('/', (req, res, next) => {
                 }
                 let message = filetoupload.name + ' uploaded!';
                 console.log(message);
-                // addToDb(fileName, teamName)
-                // alert('File Uploaded!');
             });
 
             try {

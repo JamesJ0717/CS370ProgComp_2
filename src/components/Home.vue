@@ -1,5 +1,5 @@
 <template>
-    <div id="splash">
+    <div id="home">
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, ess
            e dignissimos incidunt sit molestias itaque inventore molestiae aspe
            rnatur quam aperiam distinctio, consequatur aliquid blanditiis, numq
@@ -24,10 +24,10 @@ export default {}
 </script>
 
 <style scoped>
-#splash {
-  text-align: center;
+#home {
+    text-align: center;
 }
 p {
-  padding: 10px;
+    padding: 10px;
 }
 </style>

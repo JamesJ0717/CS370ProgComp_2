@@ -1,29 +1,35 @@
-import VueRouter from 'vue-router'
-import Splash from '@/components/Splash'
-import Login from '@/components/Login'
+import Router from 'vue-router'
 import About from '@/components/About'
-import Register from '@/components/Register'
 import Dashboard from '@/components/Dashboard'
+import Login from '@/components/Login'
+import Register from '@/components/Register'
+import Home from '@/components/Home'
+import CreateComp from '@/components/DashComponents/HostDash/CreateComp'
 
-let router = new VueRouter({
+
+let router = new Router({
     mode: 'history',
     routes: [{
             path: '/',
-            name: 'Splash',
-            component: Splash
-        }, {
-            path: '/about',
+            name: 'Home',
+            component: Home
+        },
+        {
+            path: '/About',
             name: 'About',
-            component: About,
-            meta: {
-                guest: true
-            }
-        }, {
+            component: About
+        },
+        {
             path: '/login',
             name: 'Login',
-            component: Login,
+            component: Login
+        },
+        {
+            path: '/dashboard',
+            name: 'Dashboard',
+            component: Dashboard,
             meta: {
-                guest: true
+                requiresAuth: true
             }
         },
         {
@@ -35,14 +41,14 @@ let router = new VueRouter({
             }
         },
         {
-            path: '/dashboard',
-            name: 'Dashboard',
-            component: Dashboard,
+            path: '/createComp',
+            name: 'Create Comp',
+            component: CreateComp,
             meta: {
-                requiresAuth: true
+                requiresAuth: true,
+                is_host: true
             }
         }
-
     ]
 })
 
@@ -57,8 +63,8 @@ router.beforeEach((to, from, next) => {
             })
         } else {
             let user = JSON.parse(localStorage.getItem('user'))
-            if (to.matched.some(record => record.meta.is_admin)) {
-                if (user.is_admin == 1) {
+            if (to.matched.some(record => record.meta.is_host)) {
+                if (user.is_host == 1) {
                     next()
                 } else {
                     next({

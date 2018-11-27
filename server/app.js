@@ -2,14 +2,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const favicon = require('serve-favicon');
 const path = require('path');
 
 const loginRoute = require('./api/routes/login');
 const fileDemo = require('./api/routes/fileupload');
 const registerRoute = require('./api/routes/register')
-
-// connecting to local sqlite3 database
+const addComp = require('./api/routes/addComp')
 
 // console output color coded for developing
 app.use(morgan('dev'));
@@ -40,6 +38,8 @@ app.use('/login', loginRoute);
 app.use('/fileupload', fileDemo);
 // use register for requests to /register
 app.use('/register', registerRoute);
+// use addComp for requests to /addComp
+app.use('/addComp', addComp)
 
 app.use('', (req, res, next) => {
     const error = new Error('Not found');

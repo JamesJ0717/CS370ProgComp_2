@@ -5,13 +5,15 @@ import App from './App'
 import Router from './router'
 import VueRouter from 'vue-router'
 import Axios from 'axios'
-// const Express = require('express')
+import SweetAlert2 from 'vue-sweetalert2'
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 // Vue.use(Express())
 Vue.prototype.$http = Axios
+//Allow the rest of the web app to use sweetalert2
+Vue.use(SweetAlert2)
 
 /* eslint-disable no-new */
 new Vue({

@@ -6,6 +6,9 @@
                     <router-link to='/' exact>Home</router-link>
                 </li>
                 <li>
+                    <router-link to='/dashboard' exact>Dashboard</router-link>
+                </li>
+                <li>
                     <router-link to='/about' exact>About Us</router-link>
                 </li>
                 <li>
@@ -23,47 +26,47 @@ export default {}
 
 <style scoped>
 h1 {
-  font-size: 28pt;
-  text-align: center;
-  color: aquamarine;
-  margin-top: 15px;
+    font-size: 28pt;
+    text-align: center;
+    color: aquamarine;
+    margin-top: 15px;
 }
 
 ul {
-  list-style-type: none;
-  text-align: right;
-  margin: 0;
-  float: right;
+    list-style-type: none;
+    text-align: right;
+    margin: 0;
+    float: right;
 }
 
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
 
 a {
-  color: #fff;
-  text-decoration: none;
-  padding: 6px 8px;
-  border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 10px;
 }
 
 nav {
-  background: #444;
-  padding: 10px 0;
-  margin-bottom: 20px;
-  height: 84px;
-  width: 100%;
+    background: #444;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    height: 84px;
+    width: 100%;
 }
 
 .router-link-active {
-  background: #eee;
-  color: #444;
+    background: #eee;
+    color: #444;
 }
 
 #logo {
-  text-align: left;
-  padding: 10px;
-  float: left;
+    text-align: left;
+    padding: 10px;
+    float: left;
 }
 </style>

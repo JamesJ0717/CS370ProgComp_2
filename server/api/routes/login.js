@@ -1,39 +1,41 @@
 const express = require('express');
-const db = require('../../app')
+const DB = require('../../db')
+const db = new DB('sqlite3')
 const config = require('../../config')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
-function success(boolean) {
-    console.log(boolean)
-}
-
 router.post('/', (req, res, next) => {
     console.log("POST to login")
-    db.db.selectByEmail(req.body.email, (err, user) => {
-        console.log('selectByEmail')
+    let userPass = req.body.password
+    db.selectByEmail(req.body.email, (err, user) => {
         if (err) {
             console.log(err)
             return res.status(500).send('Error on the server.')
         }
-        if (!user) return res.status(404).send('No user found.');
-        let passwordIsValid = bcrypt.compareSync(userPass, user.user_pass);
-        if (!passwordIsValid) return res.status(401).send({
+        if (!user) return res.json({
             auth: false,
-            token: null
-        })
+            token: null,
+            reason: 'email'
+        }).status(404)
+        let passwordIsValid = bcrypt.compareSync(userPass, user.user_pass);
+        if (!passwordIsValid) return res.json({
+            auth: false,
+            token: null,
+            reason: 'password'
+        }).status(401)
         let token = jwt.sign({
             id: user.id
         }, config.secret, {
             expiresIn: 86400
         })
-        res.status(200).send({
+        res.json({
             auth: true,
             token: token,
             user: user
-        })
+        }).status(200)
     })
 })
 
