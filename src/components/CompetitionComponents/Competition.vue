@@ -36,6 +36,14 @@ export default {
                             .slice(1)
                         if (file) {
                             console.log(ext)
+                            let url = 'http://localhost:9999/fileupload'
+                            this.$http
+                                .post(url, {
+                                    file: file
+                                })
+                                .then(response => {
+                                    console.log(response)
+                                })
                         } else {
                         }
                     },

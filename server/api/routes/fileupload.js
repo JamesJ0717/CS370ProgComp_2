@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const fileUpload = require('express-fileupload');
 const docker = require('../js/docker');
-const home = '../../html/home.html';
-const hostHome = '../../html/hostHome.html';
 const fs = require('fs');
 
 const SIZELIMIT = 5240000;

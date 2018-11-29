@@ -20,8 +20,8 @@ export default {
         return {
             name: '',
             question: '',
-            startDate: '2017-10-15',
-            endDate: '2017-10-15'
+            startDate: '2018-09-15',
+            endDate: '2018-09-15'
         }
     },
     methods: {

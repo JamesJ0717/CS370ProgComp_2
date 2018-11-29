@@ -49,7 +49,7 @@ class Db {
 
     insert(user, callback) {
         return this.db.run(
-            'INSERT INTO user (name,email,user_pass) VALUES (?,?,?)',
+            'INSERT INTO user (name,email,user_pass, is_host) VALUES (?,?,?,?)',
             user, (err) => {
                 callback(err)
             })

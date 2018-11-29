@@ -12,7 +12,8 @@ router.post('/', (req, res) => {
     db.insert([
             req.body.name,
             req.body.email,
-            bcrypt.hashSync(req.body.password, 8)
+            bcrypt.hashSync(req.body.password, 8),
+            req.body.is_host
         ],
         function (err) {
             if (err) {
