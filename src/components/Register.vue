@@ -48,7 +48,7 @@ export default {
             email: '',
             password: '',
             password_confirmation: '',
-            is_host: 0
+            is_host: '0'
         }
     },
     methods: {
