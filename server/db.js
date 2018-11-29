@@ -14,7 +14,13 @@ class Db {
                 name text, 
                 email text UNIQUE, 
                 user_pass text,
-                is_host integer)`
+                is_host integer);
+            CREATE TABLE IF NOT EXISTS competition (
+                id integer PRIMARY KEY,
+                name text UNIQUE,
+                question text,
+                start text, 
+                end text);`
         return this.db.run(sql);
     }
 
@@ -35,7 +41,7 @@ class Db {
             })
     }
 
-    selectAll(callback) {
+    selectAllUsers(callback) {
         return this.db.all(`SELECT * FROM user`, function (err, rows) {
             callback(err, rows)
         })
@@ -64,6 +70,12 @@ class Db {
             function (err, row) {
                 callback(err, row)
             })
+    }
+
+    selectAllComps(callback) {
+        return this.db.all('SELECT * FROM competitions', (err, rows) => {
+            callback(err, rows)
+        })
     }
 }
 

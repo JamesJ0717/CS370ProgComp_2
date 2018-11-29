@@ -5,7 +5,8 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import Home from '@/components/Home'
 import CreateComp from '@/components/DashComponents/HostDash/CreateComp'
-
+import Competition from '@/components/CompetitionComponents/Competition'
+import Logout from '@/components/Logout'
 
 let router = new Router({
     mode: 'history',
@@ -36,9 +37,7 @@ let router = new Router({
             path: '/register',
             name: 'Register',
             component: Register,
-            meta: {
-                guest: true
-            }
+            meta: {}
         },
         {
             path: '/createComp',
@@ -47,6 +46,22 @@ let router = new Router({
             meta: {
                 requiresAuth: true,
                 is_host: true
+            }
+        },
+        {
+            path: '/competition',
+            name: 'Competition',
+            component: Competition,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/logout',
+            name: 'Logout',
+            component: Logout,
+            meta: {
+                requiresAuth: true
             }
         }
     ]

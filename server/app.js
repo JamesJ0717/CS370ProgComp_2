@@ -8,6 +8,7 @@ const loginRoute = require('./api/routes/login');
 const fileDemo = require('./api/routes/fileupload');
 const registerRoute = require('./api/routes/register')
 const addComp = require('./api/routes/addComp')
+const getComps = require('./api/routes/getCompetitions')
 
 // console output color coded for developing
 app.use(morgan('dev'));
@@ -40,6 +41,8 @@ app.use('/fileupload', fileDemo);
 app.use('/register', registerRoute);
 // use addComp for requests to /addComp
 app.use('/addComp', addComp)
+//
+app.use('/getCompetitions', getComps)
 
 app.use('', (req, res, next) => {
     const error = new Error('Not found');

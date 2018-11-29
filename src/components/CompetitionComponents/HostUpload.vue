@@ -1,7 +1,7 @@
 <template>
-    <div id='upload'>
-        <input type="file" name="filetoupload">
-    </div>
+  <div id="upload">
+    <input type="file" name="filetoupload">
+  </div>
 </template>
 
 <script>

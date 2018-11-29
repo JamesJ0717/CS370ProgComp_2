@@ -1,14 +1,14 @@
 <template>
-    <div id="dash">
-        <h2> Hello, {{ getName() }} </h2>
-        <div id="user" v-if="getStatus() == 0">
-            <button type="button" @click="goToComp(1)">Comp 1</button>
-        </div>
-
-        <div id="host" v-else-if="getStatus() == 1">
-            <button type="button" @click="createComp()" id='create'>Create New Competition</button>
-        </div>
+  <div id="dash">
+    <h2>Hello, {{ getName() }}</h2>
+    <div id="user" v-if="getStatus() == 0">
+      <button id="viewComps" type="button" @click="goToComp()">View Competitions</button>
     </div>
+
+    <div id="host" v-else-if="getStatus() == 1">
+      <button id="create" type="button" @click="createComp()">Create New Competition</button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,8 +31,8 @@ export default {
             let user = JSON.parse(localStorage.getItem('user'))
             return user.is_host
         },
-        goToComp(number) {
-            this.$router.push('/comp' + number)
+        goToComp() {
+            this.$router.push('/competition')
         },
         createComp() {
             this.$router.push('/createComp')
@@ -44,7 +44,15 @@ export default {
 
 <style scoped>
 #create {
-    width: 128px;
-    height: 36px;
+    width: 256px;
+    height: 72px;
+    font-size: 20pt;
+}
+#viewComps {
+    width: 256px;
+    height: 72px;
+    font-size: 20pt;
+    background-color: #745eeb;
+    text-decoration-color: teal;
 }
 </style>

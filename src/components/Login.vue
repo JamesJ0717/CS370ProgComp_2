@@ -1,20 +1,22 @@
 <template>
-    <div class="login">
-            <label for='email'>Email: </label> 
-            <div>
-              <input v-model="email" id='email' required type="text"> <br>
-            </div>
-            <div>
-              <label>Password: </label> 
-              <div>
-                <input v-model="password" id='password' required type="password">
-              </div>
-            </div>
-            <button type="submit" @click="postLogin()">Login</button>
-            <br><br>
-            <p>Don't have an account?</p>
-            <a href="/register">Create one now</a>
+  <div class="login">
+    <label for="email">Email:</label>
+    <div>
+      <input v-model="email" id="email" required type="text">
+      <br>
     </div>
+    <div>
+      <label>Password:</label>
+      <div>
+        <input v-model="password" id="password" required type="password">
+      </div>
+    </div>
+    <button type="submit" @click="postLogin()">Login</button>
+    <br>
+    <br>
+    <p>Don't have an account?</p>
+    <a href="/register">Create one now</a>
+  </div>
 </template>
 
 <script>
@@ -35,19 +37,24 @@ export default {
                     password: this.password
                 })
                 .then(response => {
-                    if (response.data.reason === 'email') {
+                    if (response.data.response === 'server') {
+                        this.$swal({
+                            type: 'error',
+                            text: 'There was a problem with the server'
+                        })
+                    } else if (response.data.response === 'email') {
                         console.log('Invalid email')
                         this.$swal({
                             text: 'Invalid email',
                             type: 'error'
                         })
-                    } else if (response.data.reason === 'password') {
+                    } else if (response.data.response === 'password') {
                         console.log('Invalid password')
                         this.$swal({
                             text: 'Invalid password',
                             type: 'error'
                         })
-                    } else {
+                    } else if (response.data.response === 'good') {
                         this.$swal({
                             text: 'Logged in successfully!',
                             type: 'success'

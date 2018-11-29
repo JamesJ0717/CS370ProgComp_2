@@ -24,7 +24,8 @@ router.post('/', (req, res) => {
             if (err) return res.status(409).send('There is already a competition with that name.')
             res.status(200).json({
                 created: true,
-                comp: comp
+                comp: comp,
+                cause: 'created'
             })
         })
     })

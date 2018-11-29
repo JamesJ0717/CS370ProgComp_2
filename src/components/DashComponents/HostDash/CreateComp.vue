@@ -1,16 +1,16 @@
 <template>
-    <div id="create">
-        <h3>Create your competition here</h3>
-        <input type="text" v-model="name" id="name" placeholder="Competition Name">
-        <br>
-        <input type="text" v-model="question" id="question" placeholder="Competition Question">
-        <br>
-        <input type="date" v-model="startDate"  min="2018-09-05" max="2099-12-31">
-        <br>
-        <input type="date" v-model="endDate" min="2018-09-05" max="2099-12-31">
-        <br>
-        <button type="submit" @click="postComp()">Post Competition</button>
-    </div>
+  <div id="create">
+    <h3>Create your competition here</h3>
+    <input type="text" v-model="name" id="name" placeholder="Competition Name">
+    <br>
+    <input type="text" v-model="question" id="question" placeholder="Competition Question">
+    <br>
+    <input type="date" v-model="startDate" min="2018-09-05" max="2099-12-31">
+    <br>
+    <input type="date" v-model="endDate" min="2018-09-05" max="2099-12-31">
+    <br>
+    <button type="submit" @click="postComp()">Post Competition</button>
+  </div>
 </template>
 
 <script>
@@ -35,7 +35,12 @@ export default {
                     end: this.endDate
                 })
                 .then(response => {
-                    if (response.data.cause == 'name') {
+                    if (response.data.cause === 'created') {
+                        this.$swal({
+                            type: 'success',
+                            text: 'successfully created competition'
+                        })
+                    } else if (response.data.cause == 'name') {
                         this.$swal({
                             type: 'error',
                             text: 'A competition with that name already exists!'

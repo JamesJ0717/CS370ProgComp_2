@@ -13,18 +13,20 @@ router.post('/', (req, res, next) => {
     db.selectByEmail(req.body.email, (err, user) => {
         if (err) {
             console.log(err)
-            return res.status(500).send('Error on the server.')
+            return res.json({
+                response: 'server'
+            }).status(500)
         }
         if (!user) return res.json({
             auth: false,
             token: null,
-            reason: 'email'
+            response: 'email'
         }).status(404)
         let passwordIsValid = bcrypt.compareSync(userPass, user.user_pass);
         if (!passwordIsValid) return res.json({
             auth: false,
             token: null,
-            reason: 'password'
+            response: 'password'
         }).status(401)
         let token = jwt.sign({
             id: user.id
@@ -34,6 +36,7 @@ router.post('/', (req, res, next) => {
         res.json({
             auth: true,
             token: token,
+            response: 'good',
             user: user
         }).status(200)
     })

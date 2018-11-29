@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header id='header'></Header>
+    <Header id="header"></Header>
     <h1 id="welcome">Welcome to OPC!</h1>
     <router-view/>
   </div>
@@ -23,5 +23,9 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+}
+
+#header {
+    text-align: left;
 }
 </style>
