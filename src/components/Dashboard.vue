@@ -7,6 +7,9 @@
 
     <div id="host" v-else-if="getStatus() == 1">
       <button id="create" type="button" @click="createComp()">Create New Competition</button>
+      <br>
+      <br>
+      <button id="update" type="button" @click="updateComp()">Update Competitions</button>
     </div>
   </div>
 </template>
@@ -36,6 +39,9 @@ export default {
         },
         createComp() {
             this.$router.push('/createComp')
+        },
+        updateComp() {
+            this.$router.push('/updateComps')
         }
     },
     watch: {}
@@ -43,7 +49,8 @@ export default {
 </script>
 
 <style scoped>
-#create {
+#create,
+#update {
     width: 256px;
     height: 72px;
     font-size: 20pt;

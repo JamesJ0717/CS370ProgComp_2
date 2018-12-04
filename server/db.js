@@ -15,12 +15,15 @@ class Db {
                 email text UNIQUE, 
                 user_pass text,
                 is_host integer);
-            CREATE TABLE IF NOT EXISTS competition (
+            CREATE TABLE IF NOT EXISTS competitions (
                 id integer PRIMARY KEY,
                 name text UNIQUE,
+                creator integer,
                 question text,
                 start text, 
-                end text);`
+                end text,
+                gen text,
+                eval text);`
         return this.db.run(sql);
     }
 
@@ -57,7 +60,7 @@ class Db {
 
     createCompetition(comp, callback) {
         return this.db.run(
-            'INSERT INTO competitions (name,question,start,end) VALUES (?,?,?,?)',
+            'INSERT INTO competitions (name,question,creator,start,end) VALUES (?,?,?,?,?)',
             comp, (err) => {
                 callback(err)
             })
@@ -76,6 +79,15 @@ class Db {
         return this.db.all('SELECT * FROM competitions', (err, rows) => {
             callback(err, rows)
         })
+    }
+
+    getMyComps(creator, callback) {
+        return this.db.get(
+            'SELECT * FROM competitions WHERE creator = ?',
+            [creator],
+            function (err, row) {
+                callback(err, row)
+            })
     }
 }
 

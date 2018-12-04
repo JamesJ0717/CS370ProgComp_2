@@ -57,7 +57,8 @@ export default {
                     } else if (response.data.response === 'good') {
                         this.$swal({
                             text: 'Logged in successfully!',
-                            type: 'success'
+                            type: 'success',
+                            position: 'top-end'
                         })
                     }
 

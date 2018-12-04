@@ -1,12 +1,16 @@
 <template>
   <div id="create">
     <h3>Create your competition here</h3>
-    <input type="text" v-model="name" id="name" placeholder="Competition Name">
+    <label>Competition Name:</label>
+    <input type="text" v-model="name" id="name">
     <br>
-    <input type="text" v-model="question" id="question" placeholder="Competition Question">
+    <label>Competition Question:</label>
+    <input type="text" v-model="question" id="question">
     <br>
+    <label>Start Date:</label>
     <input type="date" v-model="startDate" min="2018-09-05" max="2099-12-31">
     <br>
+    <label>End Date:</label>
     <input type="date" v-model="endDate" min="2018-09-05" max="2099-12-31">
     <br>
     <button type="submit" @click="postComp()">Post Competition</button>
@@ -31,16 +35,17 @@ export default {
                 .post(url, {
                     name: this.name,
                     question: this.question,
-                    start: this.startDate,
-                    end: this.endDate
+                    creator: JSON.parse(localStorage.getItem('user')).id,
+                    startDate: this.startDate,
+                    endDate: this.endDate
                 })
                 .then(response => {
-                    if (response.data.cause === 'created') {
+                    if (response.data.status === 200) {
                         this.$swal({
                             type: 'success',
                             text: 'successfully created competition'
                         })
-                    } else if (response.data.cause == 'name') {
+                    } else if (response.data.status == 500) {
                         this.$swal({
                             type: 'error',
                             text: 'A competition with that name already exists!'
@@ -66,9 +71,12 @@ export default {
 
 <style scoped>
 input {
-    width: 512px;
+    width: 25%;
     height: 32px;
-    font-size: 18pt;
+    font-size: 12pt;
+}
+#create {
+    text-align: center;
 }
 </style>
 

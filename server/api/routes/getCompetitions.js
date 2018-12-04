@@ -24,4 +24,25 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/mine/:creator', (req, res) => {
+    db.getMyComps(req.params.creator, (err, row) => {
+        if (err) {
+            console.log(err)
+            return res.json({
+                response: 'Server Error'
+            }).status(500)
+        }
+        if (row.length === 0) {
+            console.log('Empty')
+            return res.json({
+                reason: 'empty'
+            }).status(404)
+        }
+        res.json({
+            data: row,
+            number: parseInt(row.length)
+        }).status(200)
+    })
+})
+
 module.exports = router

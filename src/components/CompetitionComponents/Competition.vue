@@ -28,21 +28,56 @@ export default {
                     title: this.comps[i].name,
                     text: this.comps[i].question,
                     input: 'file',
+                    showCancelButton: true,
                     inputValidator: file => {
-                        let name = JSON.stringify(file.name)
-                        let ext = name
-                            .trim()
-                            .split('.')
-                            .slice(1)
                         if (file) {
-                            console.log(ext)
+                            let name = JSON.stringify(file.name)
                             let url = 'http://localhost:9999/fileupload'
+                            let formData = new FormData()
+                            formData.append('filetoupload', file)
+                            formData.append('compName', this.comps[i].name)
                             this.$http
-                                .post(url, {
-                                    file: file
+                                .post(url, formData, {
+                                    headers: {
+                                        'Content-type': 'multipart/form-data'
+                                    }
                                 })
                                 .then(response => {
                                     console.log(response)
+                                    switch (response.data.status) {
+                                        case 200:
+                                            this.$swal({
+                                                type: 'success',
+                                                text: response.data.message
+                                            })
+                                            break
+                                        case 400:
+                                            this.$swal({
+                                                type: 'error',
+                                                text: response.data.message
+                                            })
+                                            break
+                                        case 401:
+                                            this.$swal({
+                                                type: 'error',
+                                                text: response.data.message
+                                            })
+                                            break
+                                        case 404:
+                                            this.$swal({
+                                                type: 'error',
+                                                text: response.data.message
+                                            })
+                                            break
+                                        case 500:
+                                            this.$swal({
+                                                type: 'error',
+                                                text: respone.data.message
+                                            })
+                                            break
+                                        default:
+                                            break
+                                    }
                                 })
                         } else {
                         }

@@ -7,6 +7,7 @@ import Home from '@/components/Home'
 import CreateComp from '@/components/DashComponents/HostDash/CreateComp'
 import Competition from '@/components/CompetitionComponents/Competition'
 import Logout from '@/components/Logout'
+import UpdateComp from '@/components/DashComponents/HostDash/UpdateComp'
 
 let router = new Router({
     mode: 'history',
@@ -62,6 +63,15 @@ let router = new Router({
             component: Logout,
             meta: {
                 requiresAuth: true
+            }
+        },
+        {
+            path: '/updateComps',
+            name: 'Update Comp',
+            component: UpdateComp,
+            meta: {
+                requiresAuth: true,
+                is_host: true
             }
         }
     ]

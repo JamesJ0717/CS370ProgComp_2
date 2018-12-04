@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Header id="header"></Header>
-    <h1 id="welcome">Welcome to OPC!</h1>
     <router-view/>
   </div>
 </template>

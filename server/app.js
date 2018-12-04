@@ -45,11 +45,10 @@ app.use('/addComp', addComp)
 app.use('/getCompetitions', getComps)
 
 app.use('', (req, res, next) => {
-    const error = new Error('Not found');
-    error.status = 404;
-    res.sendFile('public/images/confer404.jpg', {
-        root: './',
-    });
+    res.json({
+        message: 'Not found',
+        status: 404
+    }).status(404)
     // next(error);
 });
 
