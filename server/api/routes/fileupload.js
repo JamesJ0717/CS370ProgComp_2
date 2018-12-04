@@ -32,12 +32,13 @@ router.post('/', (req, res, next) => {
     let filetoupload = req.files.filetoupload
     let fileName = filetoupload.name
     let fileExt = fileName.split('.').pop()
-    let filePath = 'uploads/' + fileName
+    let filePath = 'uploads/competitions/'
     let fileSize = req.headers['content-length']
 
     let compName = req.body.compName
     let dockerResult = ''
     let isError = false
+    let compFilePath = filePath + compName
 
     // let teamName = document.cookie;
 
@@ -50,7 +51,7 @@ router.post('/', (req, res, next) => {
                 status: 401
             }).status(401)
         } else if (fileSize < SIZELIMIT) {
-            filetoupload.mv(filePath, function (err) {
+            filetoupload.mv(compFilePath + '/' + fileName, function (err) {
                 if (err) {
                     console.log(err)
                     return res
