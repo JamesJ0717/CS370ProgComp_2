@@ -3,6 +3,7 @@
     <h2>Hello, {{ getName() }}</h2>
     <div id="user" v-if="getStatus() == 0">
       <button id="viewComps" type="button" @click="goToComp()">View Competitions</button>
+      <Leaderboard></Leaderboard>
     </div>
 
     <div id="host" v-else-if="getStatus() == 1">
@@ -15,10 +16,10 @@
 </template>
 
 <script>
-import CreateComp from './DashComponents/HostDash/CreateComp'
+import Leaderboard from '@/components/DashComponents/UserDash/Leaderboard'
 export default {
     name: 'Dashboard',
-    components: { CreateComp },
+    components: { Leaderboard: Leaderboard },
     data() {
         return {
             name: '',

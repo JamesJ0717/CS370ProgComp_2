@@ -23,7 +23,12 @@ class Db {
                 start text, 
                 end text,
                 gen text,
-                eval text);`
+                eval text);
+            CREATE TABLE IF NOT EXISTS scores (
+                id integer PRIMARY KEY,
+                userName text,
+                compId integer,
+            );`
         return this.db.run(sql);
     }
 
