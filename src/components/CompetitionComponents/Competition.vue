@@ -21,14 +21,58 @@ export default {
         }
     },
     methods: {
-        async openComp(i) {
+        results(response) {
+            switch (response.data.status) {
+                case 200:
+                    this.$swal({
+                        type: 'success',
+                        text: response.data.message,
+                        text: response.data.score
+                    })
+                    break
+                case 400:
+                    this.$swal({
+                        type: 'error',
+                        text: response.data.message
+                    })
+                    break
+                case 401:
+                    this.$swal({
+                        type: 'error',
+                        text: response.data.message
+                    })
+                    break
+                case 404:
+                    this.$swal({
+                        type: 'error',
+                        text: response.data.message
+                    })
+                    break
+                case 500:
+                    this.$swal({
+                        type: 'error',
+                        text: response.data.message
+                    })
+                    break
+                default:
+                    break
+            }
+        },
+        openComp(i) {
             let comp = this.comps
+            let response = ''
             if (comp) {
                 this.$swal({
                     title: this.comps[i].name,
                     text: this.comps[i].question,
                     input: 'file',
                     showCancelButton: true,
+                    footer:
+                        '<strong>Starts</strong>: ' +
+                        this.comps[i].start +
+                        '&nbsp; --> &nbsp;' +
+                        '<strong>Ends</strong>: ' +
+                        this.comps[i].end,
                     inputValidator: file => {
                         if (file) {
                             let name = JSON.stringify(file.name)
@@ -44,50 +88,16 @@ export default {
                                 })
                                 .then(response => {
                                     console.log(response)
-                                    switch (response.data.status) {
-                                        case 200:
-                                            this.$swal({
-                                                type: 'success',
-                                                text: response.data.message
-                                            })
-                                            break
-                                        case 400:
-                                            this.$swal({
-                                                type: 'error',
-                                                text: response.data.message
-                                            })
-                                            break
-                                        case 401:
-                                            this.$swal({
-                                                type: 'error',
-                                                text: response.data.message
-                                            })
-                                            break
-                                        case 404:
-                                            this.$swal({
-                                                type: 'error',
-                                                text: response.data.message
-                                            })
-                                            break
-                                        case 500:
-                                            this.$swal({
-                                                type: 'error',
-                                                text: respone.data.message
-                                            })
-                                            break
-                                        default:
-                                            break
-                                    }
+                                    this.results(response)
                                 })
-                        } else {
                         }
-                    },
-                    footer:
-                        '<strong>Starts</strong>: ' +
-                        this.comps[i].start +
-                        '&nbsp; --> &nbsp;' +
-                        '<strong>Ends</strong>: ' +
-                        this.comps[i].end
+                        this.$swal({
+                            position: 'bottom-end',
+                            toast: true,
+                            timer: 5000,
+                            text: 'Running your code...'
+                        })
+                    }
                 })
             }
         }

@@ -23,3 +23,5 @@ router.get('/', (req, res) => {
         }).status(200)
     })
 })
+
+module.exports = router

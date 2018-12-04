@@ -9,6 +9,7 @@ const fileDemo = require('./api/routes/fileupload');
 const registerRoute = require('./api/routes/register')
 const addComp = require('./api/routes/addComp')
 const getComps = require('./api/routes/getCompetitions')
+const scores = require('./api/routes/scores')
 
 // console output color coded for developing
 app.use(morgan('dev'));
@@ -43,6 +44,8 @@ app.use('/register', registerRoute);
 app.use('/addComp', addComp)
 //
 app.use('/getCompetitions', getComps)
+//scores
+app.use('/scores', scores)
 
 app.use('', (req, res, next) => {
     res.json({

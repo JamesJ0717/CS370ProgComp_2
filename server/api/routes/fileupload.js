@@ -9,11 +9,11 @@ const SIZELIMIT = 5240000
 router.use(fileUpload())
 
 function filesForCID(cid) {
-    var gen = fs.readdirSync('uploads/competitions/' + cid + '/gen')[0]
-    var eval = fs.readdirSync('uploads/competitions/' + cid + '/eval')[0]
+    var gen = fs.readdirSync('uploads/competitions/' + cid + '/gen/')[0]
+    var eval = fs.readdirSync('uploads/competitions/' + cid + '/eval/')[0]
     return [
-        'uploads/competitions/' + cid + '/' + gen,
-        'uploads/competitions/' + cid + '/' + eval
+        'uploads/competitions/' + cid + '/gen/' + gen,
+        'uploads/competitions/' + cid + '/eval/' + eval
     ]
 }
 
@@ -39,6 +39,7 @@ router.post('/', (req, res, next) => {
     let dockerResult = ''
     let isError = false
     let compFilePath = filePath + compName
+    let compFileName = compFilePath + '/' + fileName
 
     // let teamName = document.cookie;
 
@@ -51,7 +52,7 @@ router.post('/', (req, res, next) => {
                 status: 401
             }).status(401)
         } else if (fileSize < SIZELIMIT) {
-            filetoupload.mv(compFilePath + '/' + fileName, function (err) {
+            filetoupload.mv(compFileName, function (err) {
                 if (err) {
                     console.log(err)
                     return res
@@ -68,28 +69,31 @@ router.post('/', (req, res, next) => {
             try {
                 var files = filesForCID(compName)
                 console.log('docker')
-                docker.fullRun(files[0], filePath, files[1], result => {
+                // console.log(files[0] + '\n')
+                // console.log(files[1])
+                docker.fullRun(files[0], compFileName, files[1], result => {
                     console.log(result)
                     dockerResult = result
+                    if (dockerResult.includes(' ')) isError = true
+                    else isError = false
+
+                    if (isError) {
+                        return res.json({
+                            message: dockerResult,
+                            status: 500
+                        }).status(500)
+                    } else {
+                        return res.json({
+                            message: filetoupload.name + ' uploaded!',
+                            score: dockerResult,
+                            status: 200
+                        }).status(200)
+                    }
+
                 })
             } catch (err) {
                 console.log('Error: invalid competition ID: ')
                 console.log(err)
-            }
-            if (dockerResult.includes(' ')) isError = true
-            else isError = false
-
-            if (isError) {
-                res.json({
-                    message: dockerResult,
-                    status: 500
-                }).status(500)
-            } else {
-                res.json({
-                    message: filetoupload.name + ' uploaded!',
-                    score: dockerResult,
-                    status: 200
-                }).status(200)
             }
         }
     } else {
@@ -144,15 +148,18 @@ function vettAndUpload(file, path, fileSize) {
 
 router.post('/question', (req, res, next) => {
     if (!req.files) {
-        alert('No files were uploaded.')
-        return res.status(400)
+        return res
+            .json({
+                message: 'No files were uploaded',
+                status: 500
+            })
+            .status(500)
     }
 
-    var cid = makeCompId(5)
-
-    fs.mkdirSync('uploads/competitions/' + cid)
-    fs.mkdirSync('uploads/competitions/' + cid + '/gen')
-    fs.mkdirSync('uploads/competitions/' + cid + '/eval')
+    // var cid = makeCompId(5)
+    let cid = req.body.compName
+    fs.mkdirSync('uploads/competitions/' + req.body.compName + '/gen')
+    fs.mkdirSync('uploads/competitions/' + req.body.compName + '/eval')
     var dn1 = vettAndUpload(
         req.files.genfiletoupload,
         'uploads/competitions/' + cid + '/gen/',
@@ -164,14 +171,19 @@ router.post('/question', (req, res, next) => {
         req.headers['content-length']
     )
     if (dn1 && dn2) {
-        alert('Files Uploaded! Your competition ID is "' + cid + '".')
-
-        res.sendFile('/hostHome.html', {
-            root: './html'
-        })
+        // alert('Files Uploaded! Your competition ID is "' + cid + '".')
+        res.json({
+            message: 'Files Uploaded!',
+            status: 200
+        }).status(200)
     } else {
         console.log('Not accepted')
-        res.status(500).redirect(hostHome)
+        return res
+            .json({
+                message: 'Not accepted',
+                status: 401
+            })
+            .status(401)
     }
 })
 

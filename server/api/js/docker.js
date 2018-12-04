@@ -22,7 +22,7 @@ function createVolume(callback) {
 
 /**
  * Determines the image based on the extension of the file passed
- * @param {*} filename 
+ * @param {*} filename
  * @returns image
  */
 function imageForFile(filename) {
@@ -39,9 +39,9 @@ function imageForFile(filename) {
 
 /**
  * Creates a container based on the image passed
- * @param {*} image 
- * @param {*} binds 
- * @param {*} callback 
+ * @param {*} image
+ * @param {*} binds
+ * @param {*} callback
  */
 function createContainer(image, binds, callback) {
     docker.createContainer({
@@ -62,9 +62,9 @@ function createContainer(image, binds, callback) {
 
 /**
  * Runs a command in the container passed in
- * @param {*} container 
- * @param {*} cmd 
- * @param {*} callback 
+ * @param {*} container
+ * @param {*} cmd
+ * @param {*} callback
  */
 function execute(container, cmd, callback = null) {
     container.exec({
@@ -104,6 +104,7 @@ function runCodeCmd(inputFile, codeFile, outputFile) {
     var parts = codeFile.split('.')
     var ext = parts.pop()
     var name = parts.pop()
+    // console.log(codeFile)
 
     switch (ext) {
         case 'java':
@@ -125,12 +126,13 @@ function runCodeCmd(inputFile, codeFile, outputFile) {
 
 /**
  * Runs the generation file
- * @param {*} genFile 
- * @param {*} volG 
- * @param {*} callback 
+ * @param {*} genFile
+ * @param {*} volG
+ * @param {*} callback
  */
 function runGenFile(genFile, volG, callback) {
     filename = path.basename(genFile);
+    // console.log(filename)
     binds = [
         volG.name + ':/generated',
         fs.realpathSync(genFile, []) + ':/' + filename + ':ro'
@@ -142,6 +144,7 @@ function runGenFile(genFile, volG, callback) {
 
 function runSubFile(subFile, volG, volS, callback) {
     filename = path.basename(subFile);
+    // console.log(filename)
     binds = [
         volG.name + ':/generated:ro',
         volS.name + ':/output',
@@ -154,6 +157,7 @@ function runSubFile(subFile, volG, volS, callback) {
 
 function runEvalFile(evalFile, volG, volS, callback) {
     filename = path.basename(evalFile);
+    // console.log(filename)
     binds = [
         volG.name + ':/generated:ro',
         volS.name + ':/output:ro',

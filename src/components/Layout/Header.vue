@@ -18,7 +18,7 @@
           <router-link to="/logout">Logout</router-link>
         </li>
       </ul>
-      <img id="logo" src="../../assets/logo.png" height="64px" width="64px">
+      <img id="logo" src="../../assets/logo.jpg" height="64px" width="64px">
     </nav>
   </div>
 </template>
