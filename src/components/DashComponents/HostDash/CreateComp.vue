@@ -24,6 +24,8 @@ export default {
         return {
             name: '',
             question: '',
+            genFile,
+            evalFile,
             startDate: '2018-09-15',
             endDate: '2018-09-15'
         }
@@ -43,8 +45,10 @@ export default {
                     if (response.data.status === 200) {
                         this.$swal({
                             type: 'success',
-                            text: 'successfully created competition'
+                            text:
+                                'Successfully created competition. \nPlease go to your dashboard to upload the Gen and Eval files.'
                         })
+                        this.$router.push('/dashboard')
                     } else if (response.data.status == 500) {
                         this.$swal({
                             type: 'error',
@@ -54,16 +58,12 @@ export default {
                     console.log(response)
                 })
         },
-        getDate() {
-            let date = new Date()
-            let string =
-                '' +
-                date.getFullYear() +
-                '-' +
-                date.getMonth() +
-                '-' +
-                date.getDate()
-            return string
+
+        handleGenFile(genFile) {
+            this.genFile = genFile
+        },
+        handleEvalFile(evalFile) {
+            this.evalFile = evalFile
         }
     }
 }

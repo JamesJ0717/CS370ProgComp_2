@@ -8,8 +8,6 @@
 
     <div id="host" v-else-if="getStatus() == 1">
       <button id="create" type="button" @click="createComp()">Create New Competition</button>
-      <br>
-      <br>
       <button id="update" type="button" @click="updateComp()">Update Competitions</button>
     </div>
   </div>

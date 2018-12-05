@@ -3,6 +3,8 @@ const router = express.Router()
 const fileUpload = require('express-fileupload')
 const docker = require('../js/docker')
 const fs = require('fs')
+const DB = require('../../db')
+const db = new DB('sqlite3')
 
 const SIZELIMIT = 5240000
 
@@ -83,6 +85,12 @@ router.post('/', (req, res, next) => {
                             status: 500
                         }).status(500)
                     } else {
+                        db.addScore([req.body.userName, req.body.compId, dockerResult], (err) => {
+                            if (err) return res.json({
+                                message: err,
+                                status: 500
+                            }).status(500)
+                        })
                         return res.json({
                             message: filetoupload.name + ' uploaded!',
                             score: dockerResult,

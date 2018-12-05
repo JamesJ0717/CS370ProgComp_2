@@ -10,9 +10,9 @@ class Db {
     createTable() {
         const sql = `
             CREATE TABLE IF NOT EXISTS user (
-                id integer PRIMARY KEY, 
-                name text, 
-                email text UNIQUE, 
+                id integer PRIMARY KEY,
+                name text,
+                email text UNIQUE,
                 user_pass text,
                 is_host integer);
             CREATE TABLE IF NOT EXISTS competitions (
@@ -20,7 +20,7 @@ class Db {
                 name text UNIQUE,
                 creator integer,
                 question text,
-                start text, 
+                start text,
                 end text,
                 gen text,
                 eval text);
@@ -92,6 +92,21 @@ class Db {
             [creator],
             function (err, row) {
                 callback(err, row)
+            })
+    }
+
+    addScore(score, callback) {
+        return this.db.run(
+            'INSERT INTO scores (userName,compId,score) VALUES (?,?,?)',
+            score, (err) => {
+                callback(err)
+            })
+    }
+
+    selectAllScores(callback) {
+        return this.db.all('SELECT * FROM scores',
+            (err, rows) => {
+                callback(err, rows)
             })
     }
 }

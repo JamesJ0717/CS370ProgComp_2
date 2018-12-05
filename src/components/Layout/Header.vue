@@ -33,6 +33,8 @@ export default {
     mounted() {
         if (localStorage.getItem('user') != null) {
             this.option = 'Logout'
+        } else {
+            this.option = 'Login'
         }
     }
 }

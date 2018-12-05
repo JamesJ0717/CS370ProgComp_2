@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
 })
 
 router.get('/mine/:creator', (req, res) => {
-    db.getMyComps(req.params.creator, (err, row) => {
+    db.getMyComps(req.query.creator, (err, row) => {
         if (err) {
             console.log(err)
             return res.json({

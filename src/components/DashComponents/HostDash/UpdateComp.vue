@@ -3,7 +3,9 @@
     <div v-if="comps.length !=  0">
       <h2>Here are your competitions.</h2>
       <div id="comps" v-for="(comp, index) in comps" :key="comp.name">
-        <button id="comp" @click="openComp(index)">{{comp.id }}. {{comp.name}}</button>
+        <div v-if="comp.creator === userID">
+          <button id="comp" @click="openComp(index)">{{comp.id }}. {{comp.name}}</button>
+        </div>
       </div>
     </div>
     <div v-else>
@@ -17,7 +19,8 @@ export default {
         return {
             comps: [],
             evalName: '',
-            genName: ''
+            genName: '',
+            userID: JSON.parse(localStorage.getItem('user')).id
         }
     },
     methods: {
@@ -128,4 +131,10 @@ export default {
 </script>
 
 <style scoped>
+#comp {
+    width: 30%;
+    height: 72px;
+    background-color: antiquewhite;
+    font-size: 20pt;
+}
 </style>

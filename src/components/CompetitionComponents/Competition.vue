@@ -12,6 +12,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
     data() {
@@ -80,6 +81,11 @@ export default {
                             let formData = new FormData()
                             formData.append('filetoupload', file)
                             formData.append('compName', this.comps[i].name)
+                            formData.append('compId', this.comps[i].id)
+                            formData.append(
+                                'userName',
+                                JSON.parse(localStorage.getItem('user')).name
+                            )
                             this.$http
                                 .post(url, formData, {
                                     headers: {
@@ -108,7 +114,7 @@ export default {
             if (response.data.cause === 'empty') {
                 return (this.comps.length = 0)
             }
-            console.log(response.data)
+            console.log(response)
             let comps = new Array(response.data.number)
             for (let i = 0; i < response.data.number; i++) {
                 comps[i] = response.data.data[i]
