@@ -76,7 +76,7 @@ router.post('/', (req, res, next) => {
                 docker.fullRun(files[0], compFileName, files[1], result => {
                     console.log(result)
                     dockerResult = result
-                    if (dockerResult.includes(' ')) isError = true
+                    if (dockerResult.includes('An error occurred while')) isError = true
                     else isError = false
 
                     if (isError) {
