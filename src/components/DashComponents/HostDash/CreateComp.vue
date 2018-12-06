@@ -24,8 +24,6 @@ export default {
         return {
             name: '',
             question: '',
-            genFile,
-            evalFile,
             startDate: '2018-09-15',
             endDate: '2018-09-15'
         }
