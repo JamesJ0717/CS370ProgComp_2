@@ -175,12 +175,12 @@ function fullRun(genFile, subFile, evalFile, callback) {
         createVolume(volS => {
             runGenFile(genFile, volG, (txt) => {
                 if (txt != "") {
-                    callback("ERROR: " + txt)
+                    callback("An error occurred while running the Gen file: " + txt)
                     return
                 }
                 runSubFile(subFile, volG, volS, (txt) => {
                     if (txt != "") {
-                        callback("ERROR: " + txt)
+                        callback("An error occurred while compiling and running the submission: " + txt)
                         return
                     }
 
