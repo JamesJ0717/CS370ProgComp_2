@@ -97,7 +97,7 @@ class Db {
 
     addScore(score, callback) {
         return this.db.run(
-            'INSERT INTO scores (userName,compId,score) VALUES (?,?,?)',
+            'INSERT INTO scores (userName,compId,score,compName) VALUES (?,?,?,?)',
             score, (err) => {
                 callback(err)
             })

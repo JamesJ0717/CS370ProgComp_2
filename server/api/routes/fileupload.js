@@ -85,7 +85,7 @@ router.post('/', (req, res, next) => {
                             status: 500
                         }).status(500)
                     } else {
-                        db.addScore([req.body.userName, req.body.compId, dockerResult], (err) => {
+                        db.addScore([req.body.userName, req.body.compId, dockerResult, req.body.compName], (err) => {
                             if (err) return res.json({
                                 message: err,
                                 status: 500
