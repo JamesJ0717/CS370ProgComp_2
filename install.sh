@@ -1,17 +1,17 @@
 #!/bin/bash
-sudo su;
-apt-get update && apt-get full-upgrade -y;
+## RUN AS SU ##
+apt update && apt full-upgrade -y;
 ###NODE
 echo "NodeJS" pause;
 #get the latest version of node from nodeSource
 curl -sL https://deb.nodesource.com/setup_11.x | bash -
 #install node.js
-apt-get install -y nodejs;
+apt install -y nodejs;
 ###
 ### DOCKER
 echo "Docker stuff" pause;
 # get required dependancies for docker
-apt-get install apt-transport-https ca-certificates curl software-properties-common -y;
+apt install apt-transport-https ca-certificates curl software-properties-common -y;
 # get gpg key for docker from docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -;
 apt-key fingerprint 0EBFCD88;
@@ -22,10 +22,16 @@ apt update && apt install docker-ce -y;
 #start the docker daemon
 dockerd;
 ###
+### Nginx
+apt install nginx;
 ###NPM
-apt-get install npm;
+apt install npm;
 ###
 ###REPO
 git clone https://github.com/jamesj0717/opcs;
-npm i;
 docker pull openjdk:alpine &&  docker pull python:alpine;
+cd opcs && npm i;
+npm run build && mv dist/* /var/www/html/;
+npm run server;
+###
+
