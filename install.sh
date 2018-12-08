@@ -4,7 +4,7 @@ apt-get update && apt-get full-upgrade -y;
 ###NODE
 echo "NodeJS" pause;
 #get the latest version of node from nodeSource
-curl -sL https://deb.nodesource.com/setup_11.x | -E bash -
+curl -sL https://deb.nodesource.com/setup_11.x | bash -
 #install node.js
 apt-get install -y nodejs;
 ###
@@ -19,6 +19,8 @@ apt-key fingerprint 0EBFCD88;
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable";
 #update and install
 apt update && apt install docker-ce -y;
+#start the docker daemon
+dockerd;
 ###
 apt-get install npm;
 # npm i;
