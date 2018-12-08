@@ -22,6 +22,10 @@ apt update && apt install docker-ce -y;
 #start the docker daemon
 dockerd;
 ###
+###NPM
 apt-get install npm;
-# npm i;
-# docker pull openjdk:alpine &&  docker pull python:alpine;
+###
+###REPO
+git clone https://github.com/jamesj0717/opcs;
+npm i;
+docker pull openjdk:alpine &&  docker pull python:alpine;
