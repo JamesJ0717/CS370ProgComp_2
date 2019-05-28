@@ -2,7 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node
+      - image: httpd
     steps:
       - checkout
-      - run: echo "Test"
+      - run: 
+          command: |
+            npm install
+            npm run build
+            ln -s ./dist/ /var/www/
