@@ -59,9 +59,9 @@ export default {
                 this.password === this.password_confirmation &&
                 this.password.length > 0
             ) {
-                let url = 'http://localhost:9999/register'
+                let url = 'http://18.219.145.169:9999/register'
                 if (this.is_host != null && this.is_host == 1)
-                    url = 'http://localhost:9999/register/admin'
+                    url = 'http://18.219.145.169:9999/register/admin'
                 this.$http
                     .post(url, {
                         name: this.name,

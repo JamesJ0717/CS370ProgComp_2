@@ -27,19 +27,18 @@ fi
 ### Nginx
 printf "\n\nNGINX\n\n";
 apt install nginx -y;
-###NPM
-printf "\n\nNPM\n\n";
-apt install npm -y;
 ###
 ###REPO
 printf "\n\nCLONE\n\n"
 git clone https://github.com/jamesj0717/opcs;
+chmod -R 766 opcs;
+chown -R chown -R $USER:$(id -gn $USER) /home/$USER/.config
 printf "\n\nDOCKER PULL IMAGES \n\n\n"
 docker pull openjdk:alpine &&  docker pull python:alpine;
 printf "\n\nNPM INSTALL \n\n\n"
-cd opcs && npm i;
+cd opcs && npm -s i;
 printf "\n\nNPM RUN BUILD AND COPY TO HTML DIR \n\n\n"
-npm run build && cp -R dist/* /var/www/html/;
+npm run build;
 printf "\n\nRUN SERVER\n"
 npm run server;
 ###

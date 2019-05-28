@@ -57,7 +57,7 @@ export default {
                         }
                     ])
                     .then(result => {
-                        let url = 'http://localhost:9999/fileupload/question'
+                        let url = 'http://18.219.145.169:9999/fileupload/question'
                         let formData = new FormData()
                         formData.append('compName', this.comps[i].name)
                         formData.append('genfiletoupload', this.genName)
@@ -111,7 +111,7 @@ export default {
     },
     mounted() {
         let UID = JSON.parse(localStorage.getItem('user')).id
-        let url = 'http://localhost:9999/getCompetitions/'
+        let url = 'http://18.219.145.169:9999/getCompetitions/'
         this.$http.get(url).then(response => {
             if (response.data.reason === 'empty') {
                 console.log('empty')

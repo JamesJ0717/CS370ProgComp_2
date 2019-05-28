@@ -14,7 +14,7 @@ export default {
     },
     methods: {
         upload() {
-            let url = 'http://localhost:9999/fileupload'
+            let url = 'http://18.219.145.169:9999/fileupload'
             this.$http
                 .post(url, {
                     file: this.filetoupload

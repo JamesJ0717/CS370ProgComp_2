@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         postLogin() {
-            let url = 'http://localhost:9999/login'
+            let url = 'http://18.219.145.169:9999/login'
             this.$http
                 .post(url, {
                     email: this.email,
