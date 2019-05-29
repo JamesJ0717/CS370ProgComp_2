@@ -32,13 +32,14 @@ apt install nginx -y;
 printf "\n\nCLONE\n\n"
 git clone https://github.com/jamesj0717/opcs;
 chmod -R 766 opcs;
-chown -R chown -R $USER:$(id -gn $USER) /home/$USER/.config
+chown -R $USER:$(id -gn $USER) /home/$USER/opcs;
 printf "\n\nDOCKER PULL IMAGES \n\n\n"
 docker pull openjdk:alpine &&  docker pull python:alpine;
 printf "\n\nNPM INSTALL \n\n\n"
 cd opcs && npm -s i;
 printf "\n\nNPM RUN BUILD AND COPY TO HTML DIR \n\n\n"
 npm run build;
+cp -R dist/* /var/www/html/;
 printf "\n\nRUN SERVER\n"
 npm run server;
 ###
