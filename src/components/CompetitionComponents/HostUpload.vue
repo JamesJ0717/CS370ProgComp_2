@@ -14,7 +14,7 @@ export default {
     },
     methods: {
         upload() {
-            let url = 'https://api.opcs.jamesjohnson.io:9999/fileupload'
+            let url = 'https://api.opcs.jamesjohnson.io/fileupload'
             this.$http
                 .post(url, {
                     file: this.filetoupload

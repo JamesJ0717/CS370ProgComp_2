@@ -32,7 +32,7 @@ export default {
         }
     },
     mounted() {
-        let url = 'https://api.opcs.jamesjohnson.io:9999/scores/'
+        let url = 'https://api.opcs.jamesjohnson.io/scores/'
         this.$http.get(url).then(response => {
             if (response.data.reason === 'empty') {
                 return (this.comps.length = 0)

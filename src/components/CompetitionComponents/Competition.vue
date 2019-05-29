@@ -77,7 +77,7 @@ export default {
                         if (file) {
                             let name = JSON.stringify(file.name)
                             let url =
-                                'https://api.opcs.jamesjohnson.io:9999/fileupload'
+                                'https://api.opcs.jamesjohnson.io/fileupload'
                             let formData = new FormData()
                             formData.append('filetoupload', file)
                             formData.append('compName', this.comps[i].name)
@@ -109,7 +109,7 @@ export default {
         }
     },
     mounted() {
-        let url = 'https://api.opcs.jamesjohnson.io:9999/getCompetitions/'
+        let url = 'https://api.opcs.jamesjohnson.io/getCompetitions/'
         this.$http.get(url).then(response => {
             if (response.data.cause === 'empty') {
                 return (this.comps.length = 0)
