@@ -59,9 +59,9 @@ export default {
                 this.password === this.password_confirmation &&
                 this.password.length > 0
             ) {
-                let url = 'http://18.219.145.169:9999/register'
+                let url = 'https://api.opcs.jamesjohnson.io:9999/register'
                 if (this.is_host != null && this.is_host == 1)
-                    url = 'http://18.219.145.169:9999/register/admin'
+                    url = 'https://api.opcs.jamesjohnson.io:9999/register/admin'
                 this.$http
                     .post(url, {
                         name: this.name,
