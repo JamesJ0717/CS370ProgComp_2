@@ -58,7 +58,7 @@ export default {
                     ])
                     .then(result => {
                         let url =
-                            'https://api.opcs.jamesjohnson.io/fileupload/question'
+                            'https://api-opcs.jamesjohnson.io/fileupload/question'
                         let formData = new FormData()
                         formData.append('compName', this.comps[i].name)
                         formData.append('genfiletoupload', this.genName)
@@ -112,7 +112,7 @@ export default {
     },
     mounted() {
         let UID = JSON.parse(localStorage.getItem('user')).id
-        let url = 'https://api.opcs.jamesjohnson.io/getCompetitions/'
+        let url = 'https://api-opcs.jamesjohnson.io/getCompetitions/'
         this.$http.get(url).then(response => {
             if (response.data.reason === 'empty') {
                 console.log('empty')

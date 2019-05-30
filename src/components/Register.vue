@@ -59,9 +59,9 @@ export default {
                 this.password === this.password_confirmation &&
                 this.password.length > 0
             ) {
-                let url = 'https://api.opcs.jamesjohnson.io/register'
+                let url = 'https://api-opcs.jamesjohnson.io/register'
                 if (this.is_host != null && this.is_host == 1)
-                    url = 'https://api.opcs.jamesjohnson.io/register/admin'
+                    url = 'https://api-opcs.jamesjohnson.io/register/admin'
                 this.$http
                     .post(url, {
                         name: this.name,
