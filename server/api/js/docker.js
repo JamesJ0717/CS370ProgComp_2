@@ -15,6 +15,10 @@ function createVolume(callback) {
     return docker.createVolume({
         Labels: {}
     }, (err, volume) => {
+        if (err) {
+            console.log(err)
+        }
+        console.log(volume.name)
         callback(volume);
         //    volume.remove({}).then(() => {console.log("REMOVED")});
     })
@@ -44,12 +48,16 @@ function imageForFile(filename) {
  * @param {*} callback
  */
 function createContainer(image, binds, callback) {
+    docker.pull(image);
     docker.createContainer({
             Image: image,
             Tty: true,
             Binds: binds
         },
         function (err, container) {
+            if (err) {
+                return console.log(err)
+            }
             container.start({}, (err, data) => {
                 callback(container);
                 container.stop({}).then((c) => {

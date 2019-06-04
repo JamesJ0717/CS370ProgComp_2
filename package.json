@@ -8,10 +8,11 @@
         "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
         "start": "npm run dev",
         "build": "node build/build.js",
-        "server": "node server"
+        "server": "node server/server.js",
+        "docker": "nginx && dockerd & && npm run server"
     },
     "dependencies": {
-        "bcrypt": "^3.0.6",
+        "bcryptjs": "^2.4.3",
         "body-parser": "^1.19.0",
         "dockerode": "^2.5.8",
         "express": "^4.17.1",

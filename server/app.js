@@ -35,18 +35,23 @@ app.use((req, res, next) => {
 });
 
 // use login for requests to /login
-app.use('/login', loginRoute);
+app.use('/api/login', loginRoute);
 // use fileupload for requests to /fileupload
-app.use('/fileupload', fileDemo);
+app.use('/api/fileupload', fileDemo);
 // use register for requests to /register
-app.use('/register', registerRoute);
+app.use('/api/register', registerRoute);
 // use addComp for requests to /addComp
-app.use('/addComp', addComp)
+app.use('/api/addComp', addComp)
 //
-app.use('/getCompetitions', getComps)
+app.use('/api/getCompetitions', getComps)
 //scores
-app.use('/scores', scores)
-
+app.use('/api/scores', scores)
+// "help"
+app.use('/api', (req, res, next) => {
+    res.json({
+        message: 'The available api endpoints are: "getCompetition" and "scores"'
+    })
+})
 app.use('', (req, res, next) => {
     res.json({
         message: 'Not found',

@@ -2,7 +2,7 @@ const express = require('express');
 const DB = require('../../db')
 const db = new DB('sqlite3')
 const config = require('../../config')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 const router = express.Router()

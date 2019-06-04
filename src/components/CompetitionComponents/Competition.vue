@@ -76,8 +76,7 @@ export default {
                     inputValidator: file => {
                         if (file) {
                             let name = JSON.stringify(file.name)
-                            let url =
-                                'https://api-opcs.jamesjohnson.io/fileupload'
+                            let url = 'http://localhost:8081/api/fileupload'
                             let formData = new FormData()
                             formData.append('filetoupload', file)
                             formData.append('compName', this.comps[i].name)
@@ -109,7 +108,7 @@ export default {
         }
     },
     mounted() {
-        let url = 'https://api-opcs.jamesjohnson.io/getCompetitions/'
+        let url = 'http://localhost:8081/api/getCompetitions/'
         this.$http.get(url).then(response => {
             if (response.data.cause === 'empty') {
                 return (this.comps.length = 0)
