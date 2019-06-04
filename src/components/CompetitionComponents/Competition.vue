@@ -27,7 +27,10 @@ export default {
                 case 200:
                     this.$swal({
                         type: 'success',
-                        text: response.data.message + '\n' + response.data.score
+                        text:
+                            response.data.message +
+                            '\n Your score is: ' +
+                            response.data.score
                     })
                     break
                 case 400:

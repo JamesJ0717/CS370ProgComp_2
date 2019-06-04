@@ -33,10 +33,24 @@ function imageForFile(filename) {
     ext = filename.split('.').pop()
     switch (ext) {
         case 'java':
-            docker.pull('openjdk:alpine')
+            console.log('Java file')
+            docker.pull('openjdk:alpine', err => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log('Image pulled')
+                }
+            })
             return 'openjdk:alpine'
         case 'py':
-            docker.pull('python:alpine')
+            console.log('Python file')
+            docker.pull('python:alpine', err => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log('Image pulled')
+                }
+            })
             return 'python:alpine'
         default:
             console.error('File extension not recognized: ' + ext)

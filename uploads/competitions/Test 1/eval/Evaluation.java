@@ -21,7 +21,6 @@ public class Evaluation {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("Specification length: " + readFile("generated/file.txt").length());
-		System.out.println("Result length: " + readFile("output/file.txt").length());
+		System.out.println(readFile("output/file.txt").length());
 	}
 }

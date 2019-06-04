@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const fileUpload = require('express-fileupload')
-const docker = require('../js/docker')
 const fs = require('fs')
+
+const docker = require('../js/docker')
 const DB = require('../../db')
 const db = new DB('sqlite3')
 
@@ -86,10 +87,14 @@ router.post('/', (req, res, next) => {
                         }).status(500)
                     } else {
                         db.addScore([req.body.userName, req.body.compId, dockerResult, req.body.compName], (err) => {
-                            if (err) return res.json({
-                                message: err,
-                                status: 500
-                            }).status(500)
+                            if (err) {
+                                return res.json({
+                                    message: err,
+                                    status: 500
+                                }).status(500)
+                            } else {
+                                console.log('Score added!')
+                            }
                         })
                         return res.json({
                             message: filetoupload.name + ' uploaded!',
