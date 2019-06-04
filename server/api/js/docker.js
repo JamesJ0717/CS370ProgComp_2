@@ -33,8 +33,10 @@ function imageForFile(filename) {
     ext = filename.split('.').pop()
     switch (ext) {
         case 'java':
+            docker.pull('openjdk:alpine')
             return 'openjdk:alpine'
         case 'py':
+            docker.pull('python:alpine')
             return 'python:alpine'
         default:
             console.error('File extension not recognized: ' + ext)
@@ -48,7 +50,6 @@ function imageForFile(filename) {
  * @param {*} callback
  */
 function createContainer(image, binds, callback) {
-    docker.pull(image);
     docker.createContainer({
             Image: image,
             Tty: true,
