@@ -1,11 +1,21 @@
 version: '3.5'
 
 services:
-  opcs:
-    image: opcs
-    container_name: OPCS
-    build: .
-    environment:
-      NODE_ENV: production
+  opcsback:
+    image: opcsback
+    container_name: OPCSBack
+    build: 
+      context: .
+      dockerfile: Dockerfile.back
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - 8081:80
+      - 10001:9999
+  opcsfront:
+    image: opcsfront
+    container_name: OPCSfront
+    build: 
+      context: .
+      dockerfile: Dockerfile.front
+    ports:
+      - 10000:8080

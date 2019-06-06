@@ -12,22 +12,22 @@ import UpdateComp from '@/components/DashComponents/HostDash/UpdateComp'
 let router = new Router({
     mode: 'history',
     routes: [{
-            path: '/',
+            path: '/opcs/',
             name: 'Home',
             component: Home
         },
         {
-            path: '/About',
+            path: '/opcs/About',
             name: 'About',
             component: About
         },
         {
-            path: '/login',
+            path: '/opcs/login',
             name: 'Login',
             component: Login
         },
         {
-            path: '/dashboard',
+            path: '/opcs/dashboard',
             name: 'Dashboard',
             component: Dashboard,
             meta: {
@@ -35,13 +35,13 @@ let router = new Router({
             }
         },
         {
-            path: '/register',
+            path: '/opcs/register',
             name: 'Register',
             component: Register,
             meta: {}
         },
         {
-            path: '/createComp',
+            path: '/opcs/createComp',
             name: 'Create Comp',
             component: CreateComp,
             meta: {
@@ -50,7 +50,7 @@ let router = new Router({
             }
         },
         {
-            path: '/competition',
+            path: '/opcs/competition',
             name: 'Competition',
             component: Competition,
             meta: {
@@ -58,7 +58,7 @@ let router = new Router({
             }
         },
         {
-            path: '/logout',
+            path: '/opcs/logout',
             name: 'Logout',
             component: Logout,
             meta: {
@@ -66,7 +66,7 @@ let router = new Router({
             }
         },
         {
-            path: '/updateComps',
+            path: '/opcs/updateComps',
             name: 'Update Comp',
             component: UpdateComp,
             meta: {
@@ -81,7 +81,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (localStorage.getItem('jwt') == null) {
             next({
-                path: '/login',
+                path: '/opcs/login',
                 params: {
                     nextUrl: to.fullPath
                 }
