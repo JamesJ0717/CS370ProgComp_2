@@ -115,7 +115,10 @@ router.beforeEach((to, from, next) => {
             })
         } else {
             next({
-                name: 'Register'
+                path: '/register',
+                params: {
+                    nextUrl: to.fullPath
+                }
             })
         }
     } else {
