@@ -38,7 +38,9 @@ let router = new Router({
             path: '/register',
             name: 'Register',
             component: Register,
-            meta: {}
+            meta: {
+                guest: true
+            }
         },
         {
             path: '/createComp',
@@ -73,6 +75,11 @@ let router = new Router({
                 requiresAuth: true,
                 is_host: true
             }
+        },
+        {
+            path: '*',
+            name: 'Home',
+            component: Home
         }
     ]
 })
@@ -102,7 +109,10 @@ router.beforeEach((to, from, next) => {
         }
     } else if (to.matched.some(record => record.meta.guest)) {
         if (localStorage.getItem('jwt') == null) {
-            next()
+            localStorage.removeItem('jwt')
+            next({
+                name: 'Login'
+            })
         } else {
             next({
                 name: 'Register'
