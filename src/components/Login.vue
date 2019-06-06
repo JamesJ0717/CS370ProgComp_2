@@ -15,11 +15,12 @@
     <br>
     <br>
     <p>Don't have an account?</p>
-    <a href="/register">Create one now</a>
+    <a @click="register()">Create one now</a>
   </div>
 </template>
 
 <script>
+require('dotenv').config()
 export default {
     name: 'Login',
     data() {
@@ -29,8 +30,11 @@ export default {
         }
     },
     methods: {
+        register() {
+            this.$router.push('/register')
+        },
         postLogin() {
-            let url = 'https://opcs.jamesjohnson.io/api/login'
+            let url = process.env.ENV_HOST + '/api/login'
             this.$http
                 .post(url, {
                     email: this.email,
@@ -60,14 +64,13 @@ export default {
                             type: 'success',
                             position: 'top-end'
                         })
+                        localStorage.setItem(
+                            'user',
+                            JSON.stringify(response.data.user)
+                        )
+                        localStorage.setItem('jwt', response.data.token)
                     }
 
-                    localStorage.setItem(
-                        'user',
-                        JSON.stringify(response.data.user)
-                    )
-
-                    localStorage.setItem('jwt', response.data.token)
                     if (localStorage.getItem('jwt') != null) {
                         this.$emit('loggedIn')
                         if (this.$route.params.nextUrl != null) {

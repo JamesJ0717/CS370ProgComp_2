@@ -4,7 +4,7 @@
   </div>
 </template>
 
-<script>
+<script> require('dotenv').config()
 export default {
     name: 'Upload',
     data() {
@@ -14,7 +14,7 @@ export default {
     },
     methods: {
         upload() {
-            let url = 'https://opcs.jamesjohnson.io/api/fileupload'
+            let url = process.env.ENV_HOST + '/api/fileupload'
             this.$http
                 .post(url, {
                     file: this.filetoupload

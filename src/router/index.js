@@ -17,7 +17,7 @@ let router = new Router({
             component: Home
         },
         {
-            path: '/About',
+            path: '/about',
             name: 'About',
             component: About
         },
@@ -111,7 +111,10 @@ router.beforeEach((to, from, next) => {
         if (localStorage.getItem('jwt') == null) {
             localStorage.removeItem('jwt')
             next({
-                name: 'Login'
+                path: '/login',
+                params: {
+                    nextUrl: to.fullPath
+                }
             })
         } else {
             next({

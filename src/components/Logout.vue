@@ -2,6 +2,7 @@
   <div id="logout"></div>
 </template>
 <script>
+require('dotenv').config()
 export default {
     data() {
         return {}

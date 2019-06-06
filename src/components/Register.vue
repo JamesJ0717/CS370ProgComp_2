@@ -40,6 +40,7 @@
 </template>
 
 <script>
+require('dotenv').config()
 export default {
     props: ['nextUrl'],
     data() {
@@ -59,9 +60,9 @@ export default {
                 this.password === this.password_confirmation &&
                 this.password.length > 0
             ) {
-                let url = 'https://opcs.jamesjohnson.io/api/register'
+                let url = process.env.ENV_HOST + '/api/register'
                 if (this.is_host != null && this.is_host == 1)
-                    url = 'https://opcs.jamesjohnson.io/api/register/admin'
+                    url = process.env.ENV_HOST + '/api/register/admin'
                 this.$http
                     .post(url, {
                         name: this.name,

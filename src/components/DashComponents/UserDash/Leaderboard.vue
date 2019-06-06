@@ -24,6 +24,7 @@
 </template>
 
 <script>
+require('dotenv').config()
 export default {
     data() {
         return {
@@ -32,7 +33,7 @@ export default {
         }
     },
     mounted() {
-        let url = 'https://opcs.jamesjohnson.io/api/scores/'
+        let url = process.env.ENV_HOST + '/api/scores/'
         this.$http.get(url).then(response => {
             if (response.data.reason === 'empty') {
                 return (this.comps.length = 0)

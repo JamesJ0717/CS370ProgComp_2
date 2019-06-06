@@ -6,6 +6,7 @@
 </template>
 
 <script>
+require('dotenv').config()
 import Header from '@/components/Layout/Header'
 export default {
     name: 'App',

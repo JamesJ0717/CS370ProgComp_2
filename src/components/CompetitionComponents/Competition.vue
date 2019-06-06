@@ -14,6 +14,7 @@
 </template>
 
 <script>
+require('dotenv').config()
 export default {
     data() {
         return {
@@ -79,8 +80,7 @@ export default {
                     inputValidator: file => {
                         if (file) {
                             let name = JSON.stringify(file.name)
-                            let url =
-                                'https://opcs.jamesjohnson.io/api/fileupload'
+                            let url = process.env.ENV_HOST + '/api/fileupload'
                             let formData = new FormData()
                             formData.append('filetoupload', file)
                             formData.append('compName', this.comps[i].name)
@@ -112,7 +112,7 @@ export default {
         }
     },
     mounted() {
-        let url = 'https://opcs.jamesjohnson.io/api/getCompetitions/'
+        let url = process.env.ENV_HOST + '/api/getCompetitions/'
         this.$http.get(url).then(response => {
             if (response.data.cause === 'empty') {
                 return (this.comps.length = 0)

@@ -14,6 +14,7 @@
 </template>
 
 <script>
+require('dotenv').config()
 import Leaderboard from '@/components/DashComponents/UserDash/Leaderboard'
 export default {
     name: 'Dashboard',

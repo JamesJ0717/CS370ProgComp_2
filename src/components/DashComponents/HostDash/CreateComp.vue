@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script>
+<script> require('dotenv').config()
 export default {
     name: 'CreateComp',
     data() {
@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         postComp() {
-            let url = 'https://opcs.jamesjohnson.io/api/addComp'
+            let url = process.env.ENV_HOST + '/api/addComp'
             this.$http
                 .post(url, {
                     name: this.name,

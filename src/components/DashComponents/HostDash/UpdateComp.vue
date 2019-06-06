@@ -13,7 +13,7 @@
     </div>
   </div>
 </template>
-<script>
+<script> require('dotenv').config()
 export default {
     data() {
         return {
@@ -58,7 +58,7 @@ export default {
                     ])
                     .then(result => {
                         let url =
-                            'https://opcs.jamesjohnson.io/api/fileupload/question'
+                            process.env.ENV_HOST + '/api/fileupload/question'
                         let formData = new FormData()
                         formData.append('compName', this.comps[i].name)
                         formData.append('genfiletoupload', this.genName)
@@ -112,7 +112,7 @@ export default {
     },
     mounted() {
         let UID = JSON.parse(localStorage.getItem('user')).id
-        let url = 'https://opcs.jamesjohnson.io/api/getCompetitions/'
+        let url = process.env.ENV_HOST + '/api/getCompetitions/'
         this.$http.get(url).then(response => {
             if (response.data.reason === 'empty') {
                 console.log('empty')

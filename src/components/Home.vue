@@ -42,7 +42,7 @@
   </div>
 </template>
 
-<script>
+<script> require('dotenv').config()
 export default {}
 </script>
 
