@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         postComp() {
-            let url = 'http://opcs.jamesjohnson.io/api/addComp'
+            let url = 'https://opcs.jamesjohnson.io/api/addComp'
             this.$http
                 .post(url, {
                     name: this.name,

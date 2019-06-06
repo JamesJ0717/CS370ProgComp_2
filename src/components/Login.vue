@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         postLogin() {
-            let url = 'http://opcs.jamesjohnson.io/api/login'
+            let url = 'https://opcs.jamesjohnson.io/api/login'
             this.$http
                 .post(url, {
                     email: this.email,
