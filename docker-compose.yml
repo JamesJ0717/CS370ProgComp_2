@@ -8,6 +8,7 @@ services:
       context: .
       dockerfile: Dockerfile.back
     volumes: 
+      - ./sqlite3:/app/sqlite3
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 10002:9999
