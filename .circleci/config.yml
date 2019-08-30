@@ -2,12 +2,12 @@ version: 2
 jobs:
   build1:
     docker:
-      - image: nodejs:lts
+      - image: node:lts
     steps:
       - checkout
       - run:
           name: Building Dist
-          command: npm build
+          command: npm run build
       - save_cache:
           key: OCPS-{{ .Environment.CIRCLE_SHA1 }} 
           paths:
