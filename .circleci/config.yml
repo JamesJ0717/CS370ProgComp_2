@@ -6,11 +6,26 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Building Dist
-        command: npm build
-
+          name: Building Dist
+          command: npm build
+      - save_cache:
+          key: OCPS-{{ .Environment.CIRCLE_SHA1 }} 
+          paths:
+            - ~/opcs-workflows
+  build2:
+    docker:
+      - image: nodejs:lts
+    steps:
+      - restore_cache:
+          key: OPCS-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Run Tests
+          command: npm run test
 workflows:
   version: 2
   build_and_test:
     jobs:
       -build1
+      -build2:
+       requires:
+        - build1
