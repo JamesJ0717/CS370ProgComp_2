@@ -7,4 +7,4 @@ jobs:
       - checkout
       - run:
           name: Building Dist
-          command: npm run build
+          command: npm install && npm run build
