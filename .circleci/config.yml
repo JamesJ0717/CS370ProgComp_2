@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build1:
+    docker:
+      - image: nodejs:lts
+    steps:
+      - checkout
+      - run:
+        name: Building Dist
+        command: npm build
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      -build1
