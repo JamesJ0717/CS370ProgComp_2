@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build1:
+  build:
     docker:
       - image: node:lts
     steps:
@@ -8,7 +8,3 @@ jobs:
       - run:
           name: Building Dist
           command: npm run build
-      - save_cache:
-          key: OCPS-{{ .Environment.CIRCLE_SHA1 }} 
-          paths:
-            - ~/opcs-workflows
